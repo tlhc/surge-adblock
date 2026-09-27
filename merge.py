@@ -30,11 +30,11 @@ SGT = dt.timezone(dt.timedelta(hours=8), name="SGT")
 # Upstream catalog
 # ---------------------------------------------------------------------------
 SOURCES_META = {
-    "oisd_small": {
-        "url": "https://raw.githubusercontent.com/pikipig/surge-5-anti-ad/main/antiAD-set-small.txt",
-        "file": "oisd_small.txt",
-        "kind": "domainset",
-        "label": "OISD small (pikipig)",
+    "oisd_big": {
+        "url": "https://big.oisd.nl/",
+        "file": "oisd_big.txt",
+        "kind": "adblock",
+        "label": "OISD Big",
     },
     "anti_ad": {
         "url": "https://anti-ad.net/surge2.txt",
@@ -481,7 +481,7 @@ def main() -> int:
             )
         return 1
 
-    oisd = set(loaded["oisd_small"])
+    oisd = set(loaded["oisd_big"])
     anti = set(loaded.get("anti_ad", set()))
     awa = set(loaded.get("awavenue", set()))
     priv = set(loaded.get("privacy", set()))
@@ -529,7 +529,7 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi Normal + HaGeZi Fake + HaGeZi Pop-Up Ads + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
+            "# Contents: OISD Big + anti-AD + AWAvenue + BM7 Privacy + HaGeZi Normal + HaGeZi Fake + HaGeZi Pop-Up Ads + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
@@ -575,7 +575,7 @@ def main() -> int:
     ])
 
     stats_rows = [
-        ("OISD small", raw_counts.get("oisd_small", 0)),
+        ("OISD Big", raw_counts.get("oisd_big", 0)),
         ("anti-AD", raw_counts.get("anti_ad", 0)),
         ("AWAvenue", raw_counts.get("awavenue", 0)),
         ("BM7 Privacy", raw_counts.get("privacy", 0)),

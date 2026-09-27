@@ -67,19 +67,19 @@ class MergeTests(unittest.TestCase):
             with self.subTest(protected=host):
                 self.assertFalse(any(host == line or (line.startswith(".") and
                     (host == line[1:] or host.endswith(line))) for line in lines))
-        for sourceFile in ("geekdada_dns_filter.txt", "geekdada_tracking_protection_filter.txt", "onehosts_lite_adblock.txt", "stevenblack_hosts.txt", "hagezi_normal_onlydomains.txt", "hagezi_fake_onlydomains.txt", "hagezi_popupads_onlydomains.txt"):
+        for sourceFile in ("oisd_big.txt", "geekdada_dns_filter.txt", "geekdada_tracking_protection_filter.txt", "onehosts_lite_adblock.txt", "stevenblack_hosts.txt", "hagezi_normal_onlydomains.txt", "hagezi_fake_onlydomains.txt", "hagezi_popupads_onlydomains.txt"):
             with self.subTest(source=sourceFile):
                 missing = []
                 for entry in (merge.SOURCES / sourceFile).read_text().splitlines():
                     host = entry.strip().lower().lstrip(".")
-                    if not host or entry.startswith(("#", "!")):
+                    if not host or entry.startswith(("#", "!")) or entry == "[Adblock Plus]":
                         continue
                     if sourceFile == "stevenblack_hosts.txt":
                         fields = host.split("#", 1)[0].split()
                         if len(fields) != 2 or fields[0] != "0.0.0.0" or fields[1] == "0.0.0.0":
                             continue
                         host = fields[1]
-                    if sourceFile == "onehosts_lite_adblock.txt":
+                    if sourceFile in ("onehosts_lite_adblock.txt", "oisd_big.txt"):
                         self.assertTrue(host.startswith("||") and host.endswith("^"), host)
                         host = host[2:-1]
                     parents = {".".join(host.split(".")[i:]) for i in range(len(host.split(".")) - 1)}

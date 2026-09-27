@@ -1,5 +1,5 @@
 # Surge RULE-SET: encrypted DNS and HTTPDNS endpoints
-# Generated: 2026-09-27 15:48:29 UTC+8
+# Generated: 2026-09-27 17:11:40 UTC+8
 # Sources: HaGeZi encrypted DNS domains + DoH IPv4 + BM7 BlockHttpDNS
 # Use without pre-matching; route Surge-generated DNS before this rule
 DOMAIN,dns.jd.com
