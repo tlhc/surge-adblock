@@ -1,5 +1,5 @@
 # Companion RULE-SET patch (optional) — DOMAIN-SUFFIX only
-# Generated: 2026-09-27 13:23:01 SGT
+# Generated: 2026-09-27 13:28:19 SGT
 # Source: ACL4SSR BanAD DOMAIN-SUFFIX lines (KEYWORD intentionally excluded)
 # Do NOT mix into DOMAIN-SET. Use as separate RULE-SET if desired.
 # Wide DOMAIN-KEYWORD (ad/ads/advert) omitted by design to limit FP.
