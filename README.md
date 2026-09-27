@@ -3,7 +3,7 @@
 Surge ad-blocking DOMAIN-SET. No allowlist.
 
 ```ini
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/tlhc/surge-adblock@main/out/block.list,REJECT,86400
+DOMAIN-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/block.list,REJECT,86400
 ```
 
 The policy name is yours. `86400` is the update interval in seconds. Put this line in `[Rule]` before `PROXY`, `DIRECT`, and `FINAL`.
