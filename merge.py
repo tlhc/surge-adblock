@@ -75,6 +75,18 @@ SOURCES_META = {
         "kind": "domainset",
         "label": "geekdada Tracking Protection",
     },
+    "onehosts_lite": {
+        "url": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt",
+        "file": "onehosts_lite_adblock.txt",
+        "kind": "adblock",
+        "label": "1Hosts Lite",
+    },
+    "stevenblack": {
+        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+        "file": "stevenblack_hosts.txt",
+        "kind": "hosts",
+        "label": "StevenBlack Unified",
+    },
     # companion RULE-SET only — never into the DOMAIN-SET
     "banad": {
         "url": "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanAD.list",
@@ -212,6 +224,13 @@ def line_to_host(line: str, kind: str) -> Optional[str]:
             s = s.split("#", 1)[0].strip()
             if not s:
                 return None
+
+    if kind == "hosts":
+        fields = s.split()
+        if len(fields) != 2 or fields[0] != "0.0.0.0":
+            return None
+        host = fields[1].lower().rstrip(".")
+        return host if re.fullmatch(r"[a-z0-9_-]+(?:\.[a-z0-9_-]+)+", host) and is_valid_host(host) else None
 
     # AdGuard ||host^
     m = ADG_RE.match(s)
@@ -409,6 +428,8 @@ def main() -> int:
     rec |= unique_adds(unique_adds(hage, oisd), rec)
     rec |= loaded["dns_filter"]
     rec |= loaded["tracking_protection"]
+    rec |= loaded["onehosts_lite"]
+    rec |= loaded["stevenblack"]
     rec = {
         h for h in rec
         if not any(
@@ -440,7 +461,7 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + geekdada DNS filter + geekdada Tracking Protection",
+            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
@@ -481,6 +502,8 @@ def main() -> int:
         ("HaGeZi light", raw_counts.get("hagezi_light", 0)),
         ("geekdada DNS filter", raw_counts.get("dns_filter", 0)),
         ("geekdada Tracking Protection", raw_counts.get("tracking_protection", 0)),
+        ("1Hosts Lite", raw_counts.get("onehosts_lite", 0)),
+        ("StevenBlack Unified", raw_counts.get("stevenblack", 0)),
     ]
     stats = "# Merge result\n\n| Source | Parsed hosts |\n|--------|-------------:|\n"
     for name, count in stats_rows:

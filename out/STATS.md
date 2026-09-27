@@ -7,7 +7,9 @@
 | AWAvenue | 958 |
 | BM7 Privacy | 39916 |
 | HaGeZi light | 44702 |
-| geekdada DNS filter | 182370 |
-| geekdada Tracking Protection | 106638 |
+| geekdada DNS filter | 182056 |
+| geekdada Tracking Protection | 106636 |
+| 1Hosts Lite | 102259 |
+| StevenBlack Unified | 74760 |
 
-`out/block.list`: 225114
+`out/block.list`: 303384
