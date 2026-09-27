@@ -2,7 +2,7 @@ name: Update adblock lists
 
 on:
   schedule:
-    # Daily 16:00 UTC ≈ 00:00 SGT next day; change to cron "0 */6 * * *" for every 6h
+    # Daily at 16:00 UTC
     - cron: "0 16 * * *"
   workflow_dispatch:
 
@@ -26,8 +26,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add out/ out/STATS.md sources/.gitkeep 2>/dev/null || true
-          git add out/
+          git add -A out/ sources/.gitkeep
           if git diff --staged --quiet; then
             echo "No list changes"
           else
