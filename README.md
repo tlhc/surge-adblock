@@ -19,3 +19,14 @@ Contents: OISD small + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + [geekda
 Generate with `python3 merge.py`; validate with `python3 -W error -m unittest discover -s tests -v`. Tests use downloaded files in `sources/`. Each source updates independently. Failed downloads and responses with no valid rules retain the previous valid source; updates continue with the next source. If a source has neither a valid download nor a valid cached file, generation stops before changing outputs. Broader DNS coverage still requires application-level checks for false positives.
 
 GitHub Actions refreshes all sources daily at 16:00 UTC (00:00 UTC+8), validates the merge, and publishes updated outputs and source snapshots for subsequent fallback. Manual runs use `workflow_dispatch`.
+
+Encrypted DNS and HTTPDNS blocking is generated separately as `out/dns-block-ruleset.list` from [HaGeZi encrypted DNS domains](https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/doh-onlydomains.txt), [HaGeZi DoH IPv4](https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/ips/doh.txt), and [BM7 BlockHttpDNS](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/BlockHttpDNS/BlockHttpDNS.list). The same daily workflow updates these sources, retains valid cached downloads on failure, and publishes the deduplicated RULE-SET. IPv4 addresses become `/32` rules; BM7 domain matching scope, IPv4 networks, and IPv6 networks are preserved. IP rules block all ports at the listed destinations.
+
+After publishing, subscribe before general forwarding rules. With `encrypted-dns-follow-outbound-mode=true`, route Surge-generated encrypted DNS first using your existing DNS outbound policy (`Proxy` below):
+
+```ini
+OR,((PROTOCOL,DOH),(PROTOCOL,DOH3),(PROTOCOL,DOT),(PROTOCOL,DOQ)),Proxy
+RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/dns-block-ruleset.list,REJECT,no-resolve,update-interval=86400
+```
+
+Keep this subscription free of `pre-matching`, which would run before the protocol exception. The advertising DOMAIN-SET remains separate so its DNS-stage rejection does not intercept Surge's own encrypted resolvers. Endpoint lists cover listed services; private or unlisted encrypted DNS endpoints require additional controls.

@@ -11,6 +11,7 @@ Also writes out/patch-ruleset.list (BanAD DOMAIN-SUFFIX only).
 from __future__ import annotations
 
 import datetime as dt
+import ipaddress
 import re
 import ssl
 import sys
@@ -87,6 +88,24 @@ SOURCES_META = {
         "kind": "hosts",
         "label": "StevenBlack Unified",
     },
+    "doh_domains": {
+        "url": "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/doh-onlydomains.txt",
+        "file": "hagezi_doh_domains.txt",
+        "kind": "plain_hosts",
+        "label": "HaGeZi encrypted DNS domains",
+    },
+    "doh_ipv4": {
+        "url": "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/ips/doh.txt",
+        "file": "hagezi_doh_ipv4.txt",
+        "kind": "ipv4",
+        "label": "HaGeZi DoH IPv4",
+    },
+    "httpdns": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/BlockHttpDNS/BlockHttpDNS.list",
+        "file": "bm7_httpdns.list",
+        "kind": "httpdns",
+        "label": "BM7 BlockHttpDNS",
+    },
     # companion RULE-SET only — never into the DOMAIN-SET
     "banad": {
         "url": "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanAD.list",
@@ -121,10 +140,12 @@ def download(url: str, dest: Path, timeout: int = 90) -> Tuple[bool, int, str]:
 
 def SourceIsValid(path: Path, kind: str) -> bool:
     try:
+        if kind in ("ipv4", "httpdns"):
+            return bool(ParseDnsRules(path, kind))
         if kind == "ruleset":
             return bool(parse_ruleset_domain_suffix(path))
         return bool(parse_hosts(path, kind))
-    except OSError:
+    except (OSError, ValueError):
         return False
 
 
@@ -279,6 +300,33 @@ def parse_hosts(path: Path, kind: str) -> Set[str]:
     return hosts
 
 
+def ParseDnsRules(path: Path, kind: str) -> List[str]:
+    rules = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or COMMENT_RE.match(line):
+            continue
+        if kind == "ipv4":
+            rules.add(f"IP-CIDR,{ipaddress.IPv4Address(line)}/32,no-resolve")
+            continue
+        fields = line.split(",")
+        if len(fields) < 2:
+            raise ValueError(f"Invalid DNS rule: {line}")
+        ruleType, value = fields[:2]
+        if ruleType in ("DOMAIN", "DOMAIN-SUFFIX") and len(fields) == 2:
+            if not HOST_RE.fullmatch(value) or not is_valid_host(value):
+                raise ValueError(f"Invalid DNS domain: {value}")
+            rules.add(f"{ruleType},{value.lower()}")
+        elif ruleType in ("IP-CIDR", "IP-CIDR6") and fields[2:] in ([], ["no-resolve"]):
+            network = ipaddress.ip_network(value)
+            if network.version != (4 if ruleType == "IP-CIDR" else 6):
+                raise ValueError(f"Invalid IP family: {line}")
+            rules.add(f"{ruleType},{network},no-resolve")
+        else:
+            raise ValueError(f"Unsupported DNS rule: {line}")
+    return sorted(rules)
+
+
 def parse_ruleset_domain_suffix(path: Path) -> List[str]:
     """Extract DOMAIN-SUFFIX lines only (curated companion patch)."""
     out: List[str] = []
@@ -394,7 +442,7 @@ def main() -> int:
     loaded: Dict[str, Set[str]] = {}
     raw_counts: Dict[str, int] = {}
     for key, st in status.items():
-        if not st["ok"] or st["kind"] == "ruleset":
+        if not st["ok"] or st["kind"] in ("ruleset", "ipv4", "httpdns"):
             continue
         assert st["path"] is not None
         hosts = parse_hosts(st["path"], st["kind"])
@@ -494,6 +542,18 @@ def main() -> int:
         for line in patch_lines:
             f.write(line + "\n")
 
+    dnsRules = {f"DOMAIN-SUFFIX,{host.lstrip('.')}" for host in loaded["doh_domains"]}
+    for key in ("doh_ipv4", "httpdns"):
+        rules = ParseDnsRules(status[key]["path"], status[key]["kind"])
+        raw_counts[key] = len(rules)
+        dnsRules.update(rules)
+    dnsCount = write_list(OUT / "dns-block-ruleset.list", sorted(dnsRules), [
+        "# Surge RULE-SET: encrypted DNS and HTTPDNS endpoints",
+        f"# Generated: {ts}",
+        "# Sources: HaGeZi encrypted DNS domains + DoH IPv4 + BM7 BlockHttpDNS",
+        "# Use without pre-matching; route Surge-generated DNS before this rule",
+    ])
+
     stats_rows = [
         ("OISD small", raw_counts.get("oisd_small", 0)),
         ("anti-AD", raw_counts.get("anti_ad", 0)),
@@ -509,6 +569,10 @@ def main() -> int:
     for name, count in stats_rows:
         stats += f"| {name} | {count} |\n"
     stats += f"\n`out/block.list`: {n_rec}\n"
+    stats += "\n| DNS source | Parsed rules |\n|------------|-------------:|\n"
+    for key in ("doh_domains", "doh_ipv4", "httpdns"):
+        stats += f"| {SOURCES_META[key]['label']} | {raw_counts[key]} |\n"
+    stats += f"\n`out/dns-block-ruleset.list`: {dnsCount} (deduplicated)\n"
     (OUT / "STATS.md").write_text(stats, encoding="utf-8")
 
     print("\n== outputs ==")

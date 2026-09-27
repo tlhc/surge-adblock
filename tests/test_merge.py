@@ -57,6 +57,12 @@ class MergeTests(unittest.TestCase):
                 with contextlib.redirect_stdout(io.StringIO()):
                     self.assertEqual(merge.main(), 0)
             lines = set((Path(directory) / "block.list").read_text().splitlines())
+            dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
+            for rule in ("DOMAIN-SUFFIX,dns.google", "IP-CIDR,1.1.1.1/32,no-resolve", "DOMAIN,dns.weixin.qq.com"):
+                with self.subTest(dnsRule=rule):
+                    self.assertIn(rule, dnsRules)
+            self.assertNotIn(".dns.google", lines)
+
         for host in ("safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"):
             with self.subTest(protected=host):
                 self.assertFalse(any(host == line or (line.startswith(".") and
