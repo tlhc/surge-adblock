@@ -6,13 +6,15 @@
 | anti-AD | 102114 |
 | AWAvenue | 958 |
 | BM7 Privacy | 39916 |
-| HaGeZi light | 44702 |
+| HaGeZi Normal | 164641 |
+| HaGeZi Fake | 17367 |
+| HaGeZi Pop-Up Ads | 50696 |
 | geekdada DNS filter | 182370 |
 | geekdada Tracking Protection | 106638 |
 | 1Hosts Lite | 102259 |
 | StevenBlack Unified | 74760 |
 
-`out/block.list`: 303539
+`out/block.list`: 381145
 
 | DNS source | Parsed rules |
 |------------|-------------:|

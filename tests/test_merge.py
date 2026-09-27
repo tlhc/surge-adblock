@@ -67,7 +67,7 @@ class MergeTests(unittest.TestCase):
             with self.subTest(protected=host):
                 self.assertFalse(any(host == line or (line.startswith(".") and
                     (host == line[1:] or host.endswith(line))) for line in lines))
-        for sourceFile in ("geekdada_dns_filter.txt", "geekdada_tracking_protection_filter.txt", "onehosts_lite_adblock.txt", "stevenblack_hosts.txt"):
+        for sourceFile in ("geekdada_dns_filter.txt", "geekdada_tracking_protection_filter.txt", "onehosts_lite_adblock.txt", "stevenblack_hosts.txt", "hagezi_normal_onlydomains.txt", "hagezi_fake_onlydomains.txt", "hagezi_popupads_onlydomains.txt"):
             with self.subTest(source=sourceFile):
                 missing = []
                 for entry in (merge.SOURCES / sourceFile).read_text().splitlines():

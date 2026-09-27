@@ -54,15 +54,33 @@ SOURCES_META = {
         "kind": "domainset",
         "label": "BM7 Privacy_Domain",
     },
-    "hagezi_light": {
+    "hagezi_normal": {
         # try primary then fallbacks
         "urls": [
-            "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/light-onlydomains.txt",
-            "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@main/wildcard/light-onlydomains.txt",
+            "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/multi-onlydomains.txt",
+            "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@main/wildcard/multi-onlydomains.txt",
         ],
-        "file": "hagezi_light_onlydomains.txt",
+        "file": "hagezi_normal_onlydomains.txt",
         "kind": "plain_hosts",  # bare host, no leading dot; NO *.wildcard
-        "label": "HaGeZi light onlydomains",
+        "label": "HaGeZi Normal onlydomains",
+    },
+    "hagezi_fake": {
+        "urls": [
+            "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/fake-onlydomains.txt",
+            "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@main/wildcard/fake-onlydomains.txt",
+        ],
+        "file": "hagezi_fake_onlydomains.txt",
+        "kind": "plain_hosts",
+        "label": "HaGeZi Fake",
+    },
+    "hagezi_popupads": {
+        "urls": [
+            "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/popupads-onlydomains.txt",
+            "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@main/wildcard/popupads-onlydomains.txt",
+        ],
+        "file": "hagezi_popupads_onlydomains.txt",
+        "kind": "plain_hosts",
+        "label": "HaGeZi Pop-Up Ads",
     },
     "dns_filter": {
         "url": "https://cdn.jsdelivr.net/gh/geekdada/surge-list/domain-set/dns-filter.txt",
@@ -467,13 +485,15 @@ def main() -> int:
     anti = set(loaded.get("anti_ad", set()))
     awa = set(loaded.get("awavenue", set()))
     priv = set(loaded.get("privacy", set()))
-    hage = set(loaded.get("hagezi_light", set()))
+    hage = set(loaded.get("hagezi_normal", set()))
 
     rec: Set[str] = set(oisd)
     rec |= unique_adds(anti, rec)
     rec |= awa
     rec |= unique_adds(priv, rec)
     rec |= unique_adds(unique_adds(hage, oisd), rec)
+    rec |= loaded["hagezi_fake"]
+    rec |= loaded["hagezi_popupads"]
     rec |= loaded["dns_filter"]
     rec |= loaded["tracking_protection"]
     rec |= loaded["onehosts_lite"]
@@ -509,7 +529,7 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
+            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi Normal + HaGeZi Fake + HaGeZi Pop-Up Ads + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
@@ -559,7 +579,9 @@ def main() -> int:
         ("anti-AD", raw_counts.get("anti_ad", 0)),
         ("AWAvenue", raw_counts.get("awavenue", 0)),
         ("BM7 Privacy", raw_counts.get("privacy", 0)),
-        ("HaGeZi light", raw_counts.get("hagezi_light", 0)),
+        ("HaGeZi Normal", raw_counts.get("hagezi_normal", 0)),
+        ("HaGeZi Fake", raw_counts.get("hagezi_fake", 0)),
+        ("HaGeZi Pop-Up Ads", raw_counts.get("hagezi_popupads", 0)),
         ("geekdada DNS filter", raw_counts.get("dns_filter", 0)),
         ("geekdada Tracking Protection", raw_counts.get("tracking_protection", 0)),
         ("1Hosts Lite", raw_counts.get("onehosts_lite", 0)),
