@@ -54,6 +54,12 @@ SOURCES_META = {
         "kind": "domainset",
         "label": "BM7 Privacy_Domain",
     },
+    "advertising_lite": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite_Domain.list",
+        "file": "bm7_advertising_lite_domain.list",
+        "kind": "domainset",
+        "label": "BM7 AdvertisingLite_Domain",
+    },
     "hagezi_normal": {
         # try primary then fallbacks
         "urls": [
@@ -485,12 +491,14 @@ def main() -> int:
     anti = set(loaded.get("anti_ad", set()))
     awa = set(loaded.get("awavenue", set()))
     priv = set(loaded.get("privacy", set()))
+    lite = set(loaded.get("advertising_lite", set()))
     hage = set(loaded.get("hagezi_normal", set()))
 
     rec: Set[str] = set(oisd)
     rec |= unique_adds(anti, rec)
     rec |= awa
     rec |= unique_adds(priv, rec)
+    rec |= unique_adds(lite, rec)
     rec |= unique_adds(unique_adds(hage, oisd), rec)
     rec |= loaded["hagezi_fake"]
     rec |= loaded["hagezi_popupads"]
@@ -529,7 +537,7 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD Big + anti-AD + AWAvenue + BM7 Privacy + HaGeZi Normal + HaGeZi Fake + HaGeZi Pop-Up Ads + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
+            "# Contents: OISD Big + anti-AD + AWAvenue + BM7 Privacy + BM7 AdvertisingLite_Domain + HaGeZi Normal + HaGeZi Fake + HaGeZi Pop-Up Ads + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
@@ -579,6 +587,7 @@ def main() -> int:
         ("anti-AD", raw_counts.get("anti_ad", 0)),
         ("AWAvenue", raw_counts.get("awavenue", 0)),
         ("BM7 Privacy", raw_counts.get("privacy", 0)),
+        ("BM7 AdvertisingLite_Domain", raw_counts.get("advertising_lite", 0)),
         ("HaGeZi Normal", raw_counts.get("hagezi_normal", 0)),
         ("HaGeZi Fake", raw_counts.get("hagezi_fake", 0)),
         ("HaGeZi Pop-Up Ads", raw_counts.get("hagezi_popupads", 0)),
