@@ -1,0 +1,18 @@
+# Surge DOMAIN-SET allowlist (FP avoidance) — use DIRECT *before* REJECT DOMAIN-SET
+# Generated: 2026-09-27 13:23:01 SGT
+# Source: allowlist.txt (forced). Optional file is NOT included.
+# Only suffix entries (.host) are exported; exact hosts are merge-time subtraction only.
+# Place this suffix DOMAIN-SET above the adblock DOMAIN-SET in rules.
+# Hosts: 12
+.a.hcaptcha.com
+.aadcdn.msauth.net
+.aadcdn.msftauth.net
+.appleid.apple.com
+.auth.be.sec.miui.com
+.dun.163.com
+.dun.163yun.com
+.images.identity.okta.com
+.login.live.com
+.login.microsoftonline.com
+.paypal.no
+.sgtm.adyen.com

@@ -1,0 +1,21 @@
+# allowlist-optional.txt — NOT subtracted by default
+# 争议域：放行可修复功能，但会削弱广告/遥测拦截。需要时手动并入 Surge DIRECT
+# 或复制条目到 allowlist.txt 后重新 merge。
+#
+# 本文件仅文档 + 可选参考；merge.py 默认不读取其内容做剔除。
+
+# --- anti-AD discretion：明确广告 SDK / 遥测，但拦了会坏功能 ---
+.imasdk.googleapis.com              # source=anti-AD/discretion+#1087  reason=IMA 广告 SDK；拦则部分视频无法播放
+.activity.windows.com               # source=anti-AD/discretion+#330+#401  reason=Windows 活动/遥测；影响 Edge/Authenticator 同步
+.edge.activity.windows.com          # source=anti-AD 已加白子域  reason=Edge 同步
+edge.activity.windows.com           # source=anti-AD/discretion  reason=同上（精确）
+.fundingchoices.google.com          # source=OISD FAQ  reason=同意横幅；拦则部分站点视频/同意流异常
+# note: OISD 亦提及 fundingchoicesmessages.google.com
+
+browsercfg-drcn.cloud.dbankcloud.cn # source=anti-AD/discretion+#1069  reason=华为浏览器站点数据；拦则翻译等不可用
+
+# --- PayPal telemetry（可选）---
+# HaGeZi #7685：i.paypal.com 被报 Android SMS 验证循环；维护者未能稳定复现，
+# 且指出 CNAME→adobedc.net 追踪。默认不强制放行；若 PayPal App 异常可自行加入 allowlist.txt：
+#   i.paypal.com    # source=HaGeZi#7685  reason=PayPal App SMS/登录（争议）
+#   t.paypal.com    # source=lists  reason=PayPal 追踪像素（放行=更易追踪）
