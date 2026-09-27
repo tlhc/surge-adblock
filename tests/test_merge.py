@@ -54,18 +54,19 @@ class MergeTests(unittest.TestCase):
             with self.subTest(protected=host):
                 self.assertFalse(any(host == line or (line.startswith(".") and
                     (host == line[1:] or host.endswith(line))) for line in lines))
-        with self.subTest(source="dns_filter"):
-            missing = []
-            for entry in (merge.SOURCES / "geekdada_dns_filter.txt").read_text().splitlines():
-                host = entry.strip().lower().lstrip(".")
-                if not host or entry.startswith("#"):
-                    continue
-                parents = {".".join(host.split(".")[i:]) for i in range(len(host.split(".")) - 1)}
-                if parents & merge.SHORT_ROOT_DENY or parents & {"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"}:
-                    continue
-                if not any("." + parent in lines for parent in parents):
-                    missing.append(host)
-            self.assertEqual(len(missing), 0, f"DNS filter entries missing: {missing[:5]}")
+        for sourceFile in ("geekdada_dns_filter.txt", "geekdada_tracking_protection_filter.txt"):
+            with self.subTest(source=sourceFile):
+                missing = []
+                for entry in (merge.SOURCES / sourceFile).read_text().splitlines():
+                    host = entry.strip().lower().lstrip(".")
+                    if not host or entry.startswith("#"):
+                        continue
+                    parents = {".".join(host.split(".")[i:]) for i in range(len(host.split(".")) - 1)}
+                    if parents & merge.SHORT_ROOT_DENY or parents & {"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"}:
+                        continue
+                    if not any("." + parent in lines for parent in parents):
+                        missing.append(host)
+                self.assertEqual(len(missing), 0, f"Source entries missing: {missing[:5]}")
         with self.subTest(advertising="doubleclick.net"):
             self.assertIn(".doubleclick.net", lines)
 

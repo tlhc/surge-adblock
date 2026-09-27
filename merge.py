@@ -14,6 +14,7 @@ import datetime as dt
 import re
 import ssl
 import sys
+import tempfile
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -68,6 +69,12 @@ SOURCES_META = {
         "kind": "domainset",
         "label": "geekdada DNS filter",
     },
+    "tracking_protection": {
+        "url": "https://cdn.jsdelivr.net/gh/geekdada/surge-list/domain-set/tracking-protection-filter.txt",
+        "file": "geekdada_tracking_protection_filter.txt",
+        "kind": "domainset",
+        "label": "geekdada Tracking Protection",
+    },
     # companion RULE-SET only — never into the DOMAIN-SET
     "banad": {
         "url": "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanAD.list",
@@ -78,15 +85,6 @@ SOURCES_META = {
 }
 
 UA = "surge-adblock-merge/1.0 (+https://local; merge+dedupe)"
-
-# These feeds are required for a valid default block list. Only the feeds in
-# SOFT_SKIP_SOURCES may be unavailable without failing the merge.
-REQUIRED_FETCH_SOURCES = ("oisd_small", "anti_ad", "hagezi_light", "dns_filter")
-SOFT_SKIP_SOURCES = ("awavenue", "privacy", "banad")
-FATAL_FETCH_SOURCES = tuple(
-    key for key in SOURCES_META if key not in SOFT_SKIP_SOURCES
-)
-
 
 def _ssl_ctx() -> ssl.SSLContext:
     return ssl.create_default_context()
@@ -109,6 +107,15 @@ def download(url: str, dest: Path, timeout: int = 90) -> Tuple[bool, int, str]:
         return False, 0, f"{type(e).__name__}: {e}"
 
 
+def SourceIsValid(path: Path, kind: str) -> bool:
+    try:
+        if kind == "ruleset":
+            return bool(parse_ruleset_domain_suffix(path))
+        return bool(parse_hosts(path, kind))
+    except OSError:
+        return False
+
+
 def fetch_all() -> Dict[str, dict]:
     SOURCES.mkdir(parents=True, exist_ok=True)
     status: Dict[str, dict] = {}
@@ -120,11 +127,24 @@ def fetch_all() -> Dict[str, dict]:
         last_code = 0
         used = ""
         for u in urls:
-            ok, last_code, last_note = download(u, dest)
+            with tempfile.TemporaryDirectory(prefix=".fetch-", dir=SOURCES) as directory:
+                candidatePath = Path(directory) / meta["file"]
+                ok, last_code, last_note = download(u, candidatePath)
+                if ok and not SourceIsValid(candidatePath, meta["kind"]):
+                    ok, last_note = False, "no valid rules"
+                if ok:
+                    try:
+                        candidatePath.replace(dest)
+                    except OSError as error:
+                        ok, last_note = False, str(error)
             used = u
             print(f"  [{'OK' if ok else 'SKIP'}] {key}: HTTP {last_code} — {last_note} ← {u}")
             if ok:
                 break
+        if not ok and SourceIsValid(dest, meta["kind"]):
+            ok = True
+            last_note = f"using previous source after update failure: {last_note}"
+            print(f"  [CACHED] {key}: {last_note}")
         status[key] = {
             "ok": ok,
             "code": last_code,
@@ -364,27 +384,17 @@ def main() -> int:
         print(f"  parsed {key}: {len(hosts)} hosts")
 
     failed_fatal = [
-        key for key in FATAL_FETCH_SOURCES if not status.get(key, {}).get("ok")
+        key for key in SOURCES_META if not status.get(key, {}).get("ok")
     ]
     if failed_fatal:
         for key in failed_fatal:
             st = status.get(key, {})
-            kind = "required source" if key in REQUIRED_FETCH_SOURCES else "non-optional source"
             print(
-                f"FATAL: {kind} '{key}' failed fetch "
+                f"FATAL: source '{key}' has no valid download or cached file "
                 f"(HTTP {st.get('code', 0)} — {st.get('note', 'missing status')})",
                 file=sys.stderr,
             )
         return 1
-
-    for key in SOFT_SKIP_SOURCES:
-        st = status.get(key, {})
-        if not st.get("ok"):
-            print(
-                f"WARNING: optional source '{key}' unavailable; continuing "
-                f"without it (HTTP {st.get('code', 0)} — {st.get('note', 'missing status')})",
-                file=sys.stderr,
-            )
 
     oisd = set(loaded["oisd_small"])
     anti = set(loaded.get("anti_ad", set()))
@@ -398,6 +408,7 @@ def main() -> int:
     rec |= unique_adds(priv, rec)
     rec |= unique_adds(unique_adds(hage, oisd), rec)
     rec |= loaded["dns_filter"]
+    rec |= loaded["tracking_protection"]
     rec = {
         h for h in rec
         if not any(
@@ -429,7 +440,7 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + geekdada DNS filter",
+            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + geekdada DNS filter + geekdada Tracking Protection",
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
@@ -469,6 +480,7 @@ def main() -> int:
         ("BM7 Privacy", raw_counts.get("privacy", 0)),
         ("HaGeZi light", raw_counts.get("hagezi_light", 0)),
         ("geekdada DNS filter", raw_counts.get("dns_filter", 0)),
+        ("geekdada Tracking Protection", raw_counts.get("tracking_protection", 0)),
     ]
     stats = "# Merge result\n\n| Source | Parsed hosts |\n|--------|-------------:|\n"
     for name, count in stats_rows:
