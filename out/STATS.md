@@ -7,5 +7,6 @@
 | AWAvenue | 958 |
 | BM7 Privacy | 39916 |
 | HaGeZi light | 44702 |
+| geekdada DNS filter | 182056 |
 
-`out/block.list`: 139714
+`out/block.list`: 224979

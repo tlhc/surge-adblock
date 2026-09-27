@@ -2,8 +2,8 @@
 """
 Surge DOMAIN-SET merge.
 
-block = OISD ∪ (anti-AD − OISD) ∪ AWAvenue ∪ (Privacy − current) ∪ (HaGeZi − current)
-then suffix-fold → out/block.list
+Merge domain sources, preserve exact matches, exclude protected services,
+then suffix-fold -> out/block.list.
 
 Also writes out/patch-ruleset.list (BanAD DOMAIN-SUFFIX only).
 """
@@ -62,6 +62,12 @@ SOURCES_META = {
         "kind": "plain_hosts",  # bare host, no leading dot; NO *.wildcard
         "label": "HaGeZi light onlydomains",
     },
+    "dns_filter": {
+        "url": "https://cdn.jsdelivr.net/gh/geekdada/surge-list/domain-set/dns-filter.txt",
+        "file": "geekdada_dns_filter.txt",
+        "kind": "domainset",
+        "label": "geekdada DNS filter",
+    },
     # companion RULE-SET only — never into the DOMAIN-SET
     "banad": {
         "url": "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanAD.list",
@@ -75,7 +81,7 @@ UA = "surge-adblock-merge/1.0 (+https://local; merge+dedupe)"
 
 # These feeds are required for a valid default block list. Only the feeds in
 # SOFT_SKIP_SOURCES may be unavailable without failing the merge.
-REQUIRED_FETCH_SOURCES = ("oisd_small", "anti_ad", "hagezi_light")
+REQUIRED_FETCH_SOURCES = ("oisd_small", "anti_ad", "hagezi_light", "dns_filter")
 SOFT_SKIP_SOURCES = ("awavenue", "privacy", "banad")
 FATAL_FETCH_SOURCES = tuple(
     key for key in SOURCES_META if key not in SOFT_SKIP_SOURCES
@@ -132,7 +138,7 @@ def fetch_all() -> Dict[str, dict]:
 
 
 # ---------------------------------------------------------------------------
-# Normalization → host keys (lowercase, no leading . or *.)
+# Normalization: lowercase, leading dot for suffix rules
 # ---------------------------------------------------------------------------
 COMMENT_RE = re.compile(r"^\s*(#|!|//)")
 # DOMAIN-SUFFIX,host  / DOMAIN,host  / DOMAIN-KEYWORD,... / URL-REGEX,... / IP-CIDR,...
@@ -175,7 +181,7 @@ def is_valid_host(h: str) -> bool:
 
 
 def line_to_host(line: str, kind: str) -> Optional[str]:
-    """Extract a single host key from a source line, or None to skip."""
+    """Extract a DOMAIN-SET entry while preserving its matching scope."""
     s = line.strip()
     if not s or COMMENT_RE.match(s):
         return None
@@ -191,23 +197,22 @@ def line_to_host(line: str, kind: str) -> Optional[str]:
     m = ADG_RE.match(s)
     if m:
         h = m.group(1).lower().rstrip(".")
-        return h if is_valid_host(h) else None
+        return f".{h}" if is_valid_host(h) else None
 
     # Surge/Clash typed rule
     m = RULE_RE.match(s)
     if m:
         typ = m.group("typ").upper()
         body = m.group("body").strip()
-        if typ in SKIP_TYPES or typ == "DOMAIN":
-            # DOMAIN,host is an exact match. A leading-dot DOMAIN-SET line would
-            # also block every subdomain, so exact rules stay out of this export.
+        if typ in SKIP_TYPES or typ == "DOMAIN-SET":
             return None
-        if typ in ("DOMAIN-SUFFIX", "DOMAIN-SET"):
+        if typ in ("DOMAIN-SUFFIX", "DOMAIN"):
             h = body.lower().rstrip(".")
             if h.startswith("*."):
                 h = h[2:]
             h = h.lstrip(".")
-            return h if is_valid_host(h) else None
+            prefix = "." if typ == "DOMAIN-SUFFIX" else ""
+            return prefix + h if is_valid_host(h) else None
         return None
 
     # HaGeZi onlydomains: reject wildcard *.host explicitly
@@ -215,12 +220,13 @@ def line_to_host(line: str, kind: str) -> Optional[str]:
         if s.startswith("*.") or s.startswith("*"):
             return None
         h = s.lower().lstrip(".").rstrip(".")
-        return h if is_valid_host(h) else None
+        return f".{h}" if is_valid_host(h) else None
 
     hm = HOST_RE.match(s)
     if hm:
-        h = hm.group(1).lower()
-        return h if is_valid_host(h) else None
+        h = hm.group(1).lower().rstrip(".")
+        prefix = "." if s.startswith((".", "*.")) else ""
+        return prefix + h if is_valid_host(h) else None
     return None
 
 
@@ -261,23 +267,16 @@ def parse_ruleset_domain_suffix(path: Path) -> List[str]:
 # Suffix folding: if example.com present, drop ads.example.com
 # ---------------------------------------------------------------------------
 def fold_suffixes(hosts: Iterable[str]) -> Set[str]:
-    """Keep only hosts that are not a strict subdomain of another host in the set."""
-    sorted_hosts = sorted(set(hosts), key=lambda h: (h.count("."), len(h), h))
-    kept: List[str] = []
-    # index by reversed labels for parent checks — use simple endswith for clarity/correctness
+    """Remove entries covered by a suffix rule; exact parents cover no children."""
+    entries = set(hosts)
     kept_set: Set[str] = set()
-    for h in sorted_hosts:
-        # check if any already-kept parent is a suffix of h
-        parts = h.split(".")
-        is_child = False
-        # potential parents: h's suffixes of length >= 2 labels
-        for i in range(1, len(parts) - 1):
-            parent = ".".join(parts[i:])
-            if parent in kept_set:
-                is_child = True
+    for h in entries:
+        parts = h.lstrip(".").split(".")
+        for i in range(len(parts) - 1):
+            parent = "." + ".".join(parts[i:])
+            if parent != h and parent in entries:
                 break
-        if not is_child:
-            kept.append(h)
+        else:
             kept_set.add(h)
     return kept_set
 
@@ -321,12 +320,15 @@ SHORT_ROOT_DENY = frozenset(
 
 def drop_short_roots(hosts: Set[str]) -> Tuple[Set[str], Set[str]]:
     """Return (kept, removed) for hosts listed in SHORT_ROOT_DENY."""
-    removed = {h for h in hosts if h in SHORT_ROOT_DENY}
+    removed = {h for h in hosts if h.lstrip(".") in SHORT_ROOT_DENY}
     return hosts - removed, removed
 
 
 def to_domainset_lines(hosts: Set[str]) -> List[str]:
-    return [f".{h}" for h in sorted(hosts)]
+    return sorted(hosts)
+
+
+PROTECTED_HOSTS = frozenset({"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"})
 
 
 def write_list(path: Path, lines: List[str], header: List[str]) -> int:
@@ -340,7 +342,7 @@ def write_list(path: Path, lines: List[str], header: List[str]) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Block set: suffix-fold, then write out/block.list. No allowlist step.
+# Block set: exclude protected services, suffix-fold, then write out/block.list.
 # ---------------------------------------------------------------------------
 def unique_adds(candidate: Set[str], existing: Set[str]) -> Set[str]:
     return candidate - existing
@@ -395,6 +397,16 @@ def main() -> int:
     rec |= awa
     rec |= unique_adds(priv, rec)
     rec |= unique_adds(unique_adds(hage, oisd), rec)
+    rec |= loaded["dns_filter"]
+    rec = {
+        h for h in rec
+        if not any(
+            h.lstrip(".") == protected
+            or h.lstrip(".").endswith("." + protected)
+            or (h.startswith(".") and protected.endswith(h))
+            for protected in PROTECTED_HOSTS
+        )
+    }
     rec_folded = fold_suffixes(rec)
     rec_folded, short_roots_removed = drop_short_roots(rec_folded)
 
@@ -406,7 +418,7 @@ def main() -> int:
     header_common = [
         "# Surge DOMAIN-SET",
         f"# Generated: {ts}",
-        "# One leading-dot host per line",
+        "# Bare host: exact match; leading dot: host and subdomains",
     ]
 
     rec_lines = to_domainset_lines(rec_folded)
@@ -417,7 +429,8 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD ∪ (anti-AD−OISD) ∪ AWAvenue ∪ (Privacy−current) ∪ (HaGeZi−OISD)",
+            "# Contents: OISD + anti-AD + AWAvenue + BM7 Privacy + HaGeZi light + geekdada DNS filter",
+            "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
     for stale in (
@@ -455,6 +468,7 @@ def main() -> int:
         ("AWAvenue", raw_counts.get("awavenue", 0)),
         ("BM7 Privacy", raw_counts.get("privacy", 0)),
         ("HaGeZi light", raw_counts.get("hagezi_light", 0)),
+        ("geekdada DNS filter", raw_counts.get("dns_filter", 0)),
     ]
     stats = "# Merge result\n\n| Source | Parsed hosts |\n|--------|-------------:|\n"
     for name, count in stats_rows:

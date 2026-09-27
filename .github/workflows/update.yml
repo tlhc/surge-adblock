@@ -22,6 +22,9 @@ jobs:
       - name: Fetch upstreams and merge
         run: python3 merge.py
 
+      - name: Validate merged rules
+        run: python3 -W error -m unittest discover -s tests -v
+
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
