@@ -2,7 +2,7 @@
 
 | Source | Parsed hosts |
 |--------|-------------:|
-| OISD Big | 243689 |
+| OISD Big | 243900 |
 | anti-AD | 102114 |
 | AWAvenue | 958 |
 | BM7 Privacy | 39916 |
@@ -15,7 +15,7 @@
 | 1Hosts Lite | 102259 |
 | StevenBlack Unified | 74760 |
 
-`out/block.list`: 532567
+`out/block.list`: 532777
 
 | DNS source | Parsed rules |
 |------------|-------------:|
