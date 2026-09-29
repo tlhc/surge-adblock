@@ -5,10 +5,10 @@
 # Issues: https://github.com/hagezi/dns-blocklists/issues
 # Disclaimer: https://github.com/hagezi/dns-blocklists/blob/main/README.md#disclaimer
 # Expires: 8 hours
-# Last modified: 28 Sep 2026 07:38 UTC
-# Version: 2026.0928.0738.19
+# Last modified: 29 Sep 2026 07:36 UTC
+# Version: 2026.0929.0736.48
 # Syntax: Domains (without subdomains)
-# Number of entries: 50716
+# Number of entries: 50725
 #
 fd01ce9a02.0012e30263.com
 0db65504c2.012dadaa06.com
@@ -343,9 +343,6 @@ sc.banqueoutkill.com
 darian.bantengan.xyz
 uc.barbelfaldfee.com
 do.barmfellists.com
-chiyouranai.base.shop
-tokujiro.base.shop
-uranai1111.base.shop
 ah.basothomug.com
 bv.basquedbeloam.com
 ck.bastardzingaro.com
@@ -660,6 +657,7 @@ guardiansofthegreenproject.co.in
 healtheweb.co.uk
 honeyline.co.jp
 horse-racing-affiliate-program.co.uk
+ikeymate.co.nz
 insolvency-development.co.uk
 interworksmedia.co.kr
 inuxu.co.in
@@ -7890,6 +7888,7 @@ zqrj.zzrazrorjakoz.top
 5977.cc
 5978ef8c9a.com
 597hx.com
+59na.com
 5a135sub36pv.top
 5a5751fd6a.com
 5advertise.com
@@ -12433,6 +12432,7 @@ bartonpriority.com
 bartramagynous.com
 barytemarkup.com
 barytethynnid.com
+base.shop
 baseballletters.com
 basednewsarticle.com
 basejudgementquizmaster.com
@@ -13303,6 +13303,7 @@ bjxusfnfstjae.online
 bjydvoaqmxscacu.com
 bjzabeeqjktyy.website
 bkest.sa
+bkgdcckw.cfd
 bkjgqyasbalgk.website
 bkjhqkohal.com
 bklhutjteyhiye.com
@@ -19132,6 +19133,7 @@ dokopka.icu
 dokscnultmj.com
 dolatiaschan.com
 dolcqtiqbxoeq.com
+doledishinflict.com
 dolefulbailjoy.com
 dolekaraokeoversleep.com
 dollardelta.com
@@ -19443,6 +19445,7 @@ drewtherunner.com
 dreycusps.com
 dreyeli.info
 drface360.com
+dribbleoutscorepebble.com
 drient.xyz
 driftpizza.com
 drillcompensate.com
@@ -26652,6 +26655,7 @@ illusiongaietytedious.com
 illusivecleavepsychopath.com
 illustrategoggle.com
 illustrationcompute.com
+illustrationyoursstair.com
 illustrious-consideration.com
 illustriousarrival.com
 illustrlousdate.com
@@ -29089,6 +29093,7 @@ koaptoah.net
 koaptouw.com
 koasoophoapsoot.net
 koawuraisi.net
+koboldcpp.com
 kobolstudios.com
 kocairdo.net
 kochbvplt.com
@@ -32427,6 +32432,7 @@ monkeyarmiesdisturbing.com
 monkeybroker.net
 monkeysloveyou.com
 monkishkecked.com
+monoclick.top
 monogonzalez.com
 monorailnailtributary.com
 monsoonlassi.com
@@ -33008,6 +33014,7 @@ mysterious-emotion.com
 mysteriousprocess.com
 mysteriousseat.com
 mystery-forest.com
+mysticaladoptionocean.com
 mysticalbailey.com
 mysticechohaven.com
 mysticentangledconfine.com
@@ -44503,6 +44510,7 @@ thinksuggest.org
 thinkwonders.shop
 thinpeace.com
 thipseedsy.net
+third-party.com
 third-tracking.com
 thirdbiography.com
 thirdgas.com
@@ -47646,6 +47654,7 @@ vvllrb.top
 vvluck.com
 vvolnzdglprvf.store
 vvolyzmoborp.com
+vvpyzrpwqjnnve.com
 vvtprtjcnshiwj.com
 vvvex.com
 vw66i.top
