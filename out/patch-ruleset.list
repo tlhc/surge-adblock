@@ -1,5 +1,5 @@
 # RULE-SET, DOMAIN-SUFFIX only
-# Generated: 2026-10-04 01:24:53 UTC+8
+# Generated: 2026-10-05 01:31:40 UTC+8
 # Source: ACL4SSR BanAD
 # Subscribe separately from the DOMAIN-SET
 DOMAIN-SUFFIX,09mk.cn
