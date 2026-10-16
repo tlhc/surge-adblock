@@ -30,3 +30,11 @@ RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/dns-block
 ```
 
 Keep this subscription free of `pre-matching`, which would run before the protocol exception. The advertising DOMAIN-SET remains separate so its DNS-stage rejection does not intercept Surge's own encrypted resolvers. Endpoint lists cover listed services; private or unlisted encrypted DNS endpoints require additional controls.
+
+## Modules
+
+`modules/Amap.sgmodule` removes Amap splash and in-app ads. Requires MITM; reinstall Amap after enabling.
+
+```
+https://raw.githubusercontent.com/tlhc/surge-adblock/main/modules/Amap.sgmodule
+```
