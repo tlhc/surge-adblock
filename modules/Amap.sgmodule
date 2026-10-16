@@ -1,0 +1,29 @@
+#!name=Amap Ad Block
+#!desc=Converted from ddgksf2013 AmapAds.conf V1.0.28. Reinstall Amap after enabling.
+
+[URL Rewrite]
+^https?:\/\/.*\.amap\.com\/ws\/asa\/ads_attribution - reject
+
+[Map Local]
+^https?:\/\/.*\.amap\.com\/ws\/aos\/alimama\/splash_screen data-type=text data="" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/boss\/order_web\/\w{8}_information data-type=text data="" status-code=200
+^https?:\/\/.*\.amap\.com\/v\d\/ai_rec\/ data-type=text data="{}" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? data-type=text data="{}" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend data-type=text data="{}" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather data-type=text data="{}" status-code=200
+^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif data-type=tiny-gif status-code=200
+
+[Script]
+amdc = type=http-response,pattern=^http:\/\/amdc\.m\.taobao\.com,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
+amap-notice = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/message\/notice\/list,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-aocs = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-nearby = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/nearbyrec_smart,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-promotion = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/promotion-web\/resource,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-mainpage = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/main-page,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-splash = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/valueadded\/alimama\/splash_screen,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-msgbox = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/msgbox\/pull,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-profile = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaas,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+amap-hotword = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/new_hotword,requires-body=1,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+
+[MITM]
+hostname = %APPEND% m5.amap.com, m5-zb.amap.com, center.amap.com, amap-aos-info-nogw.amap.com, ai.amap.com
