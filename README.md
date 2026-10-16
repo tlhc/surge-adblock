@@ -35,6 +35,9 @@ Keep this subscription free of `pre-matching`, which would run before the protoc
 
 `modules/Amap.sgmodule` removes Amap splash and in-app ads. Requires MITM; reinstall Amap after enabling.
 
+`modules/Xiaohongshu.sgmodule` removes Xiaohongshu splash, home-feed, search, and note-detail ads. Requires MITM; reinstall Xiaohongshu after enabling.
+
 ```
 https://raw.githubusercontent.com/tlhc/surge-adblock/main/modules/Amap.sgmodule
+https://raw.githubusercontent.com/tlhc/surge-adblock/main/modules/Xiaohongshu.sgmodule
 ```
