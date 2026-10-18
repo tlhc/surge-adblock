@@ -10,10 +10,10 @@ AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,amap.com)),REJECT
 [Map Local]
 ^https?:\/\/.*\.amap\.com\/ws\/aos\/alimama\/splash_screen data-type=text data="" status-code=200
 ^https?:\/\/.*\.amap\.com\/ws\/boss\/order_web\/\w{8}_information data-type=text data="" status-code=200
-^https?:\/\/.*\.amap\.com\/v\d\/ai_rec\/ data-type=text data="{}" status-code=200
-^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? data-type=text data="{}" status-code=200
-^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend data-type=text data="{}" status-code=200
-^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather data-type=text data="{}" status-code=200
+^https?:\/\/.*\.amap\.com\/v\d\/ai_rec\/ data-type=text data="{}" header="Content-Type:application/json" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? data-type=text data="{}" header="Content-Type:application/json" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend data-type=text data="{}" header="Content-Type:application/json" status-code=200
+^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather data-type=text data="{}" header="Content-Type:application/json" status-code=200
 ^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif data-type=tiny-gif status-code=200
 
 [Script]
