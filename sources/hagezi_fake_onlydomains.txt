@@ -5,10 +5,10 @@
 # Issues: https://github.com/hagezi/dns-blocklists/issues
 # Disclaimer: https://github.com/hagezi/dns-blocklists/blob/main/README.md#disclaimer
 # Expires: 8 hours
-# Last modified: 17 Oct 2026 08:18 UTC
-# Version: 2026.1017.0818.12
+# Last modified: 18 Oct 2026 08:05 UTC
+# Version: 2026.1018.0805.10
 # Syntax: Domains (without subdomains)
-# Number of entries: 17433
+# Number of entries: 17435
 #
 f.075756.net
 finanzen.075756.net
@@ -1609,7 +1609,6 @@ ascreationdecor.com
 asd-rechtsanwaelte.de
 asdvance.com
 asela-handel.de
-asfcrnuqpu.lol
 asfig-strasse.com
 asfinag.live
 asfinag.shop
@@ -3689,6 +3688,7 @@ containerschiffsreedereigmbh.de
 containerslager.com
 containersolutionscs.de
 containersparks.com
+containerstahlhaus.com
 containerwelt24.com
 containerworldllc.store
 contiflexv.com
@@ -3866,6 +3866,7 @@ csbsts.site
 cschwindt24.de
 csschwindt.de
 csunbox.com
+ctbike.pl
 cthesky.com
 ctoption.com
 ctxholdings.com
@@ -5772,7 +5773,6 @@ financieredsbg.com
 financieres.com
 finanzasforex.com
 finanzenexpress.com
-finanzonline-bmfgv.cc
 finanzonline-gvbmfgv.info
 finanzplanungwittenberg.com
 finanzwelt.pro
@@ -6047,6 +6047,7 @@ fox-mart.de
 foxhandel.de
 foxracinggeschaft.com
 foxverkaufe.com
+fplgchauffage.com
 fr-drbright.net
 fractionevr.com
 fractionu.com
@@ -10023,6 +10024,7 @@ magicfreecom.com
 magicplayzone.com
 magicpotionoutletstore.shop
 magicwandshop.de
+magiluxe-store.com
 magischepfoten.de
 magischesparfum.de
 magiskapk.net
@@ -10535,7 +10537,6 @@ mfmarketgmbh.de
 mfomatratzenmarkt.de
 mfsebike.com
 mg-management.de
-mgaffaires.com
 mgmglobal.com
 mhamzasaleem.com
 mhoptions.com
@@ -13298,7 +13299,6 @@ rheinwing.de
 rheumaschuhe.de
 rheumatologie-wien.at
 rhinoshopsystems.com
-rhodeshotel24.com
 ri-lieeoodu.com
 ricadihotelspage.com
 ricardo-sofort-deals123.online
@@ -13416,6 +13416,7 @@ rohrshop24.com
 roinvest.net
 roleo.net
 rolex-replica.to
+rolexwanduhr.de
 rolexyeals.com
 rolla.store
 rolladen-rudolf.at
@@ -16466,6 +16467,7 @@ vivabikes.de
 vivagopro.com
 vivaharmoni.com
 vivaia-schuhe.de
+vivaiacollection.com
 vivaiaschuhe.at
 vivaiaschuhe.com
 vivaiaschuhe.de
