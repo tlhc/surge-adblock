@@ -2,10 +2,6 @@
 #!desc=Splash, home-feed, search, and note-detail ad removal derived from fmz200 Xiaohongshu module. Reinstall Xiaohongshu after enabling.
 
 [Rule]
-DOMAIN,ads-img-qc.xhscdn.com,REJECT
-DOMAIN,ads-video-al.xhscdn.com,REJECT
-DOMAIN,ads-video-qc.xhscdn.com,REJECT
-DOMAIN,t-ads.xiaohongshu.com,REJECT
 AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com)),REJECT
 
 [Map Local]
