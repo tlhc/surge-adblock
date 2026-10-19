@@ -2,20 +2,20 @@
 
 | Source | Parsed hosts |
 |--------|-------------:|
-| OISD Big | 234396 |
+| OISD Big | 234520 |
 | anti-AD | 102892 |
 | AWAvenue | 958 |
 | BM7 Privacy | 39916 |
 | BM7 AdvertisingLite_Domain | 37692 |
-| HaGeZi Normal | 166141 |
-| HaGeZi Fake | 17435 |
-| HaGeZi Pop-Up Ads | 47668 |
-| geekdada DNS filter | 184997 |
+| HaGeZi Normal | 167139 |
+| HaGeZi Fake | 17428 |
+| HaGeZi Pop-Up Ads | 47691 |
+| geekdada DNS filter | 185334 |
 | geekdada Tracking Protection | 110484 |
 | 1Hosts Lite | 102259 |
-| StevenBlack Unified | 73633 |
+| StevenBlack Unified | 71492 |
 
-`out/block.list`: 519802
+`out/block.list`: 519279
 
 | DNS source | Parsed rules |
 |------------|-------------:|
