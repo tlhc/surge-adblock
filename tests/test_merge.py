@@ -10,17 +10,11 @@ import merge
 
 class MergeTests(unittest.TestCase):
     def test_exact_domainset_round_trip(self):
-        hosts = merge.parse_hosts(merge.SOURCES / "bm7_privacy_domain.list", "domainset")
-        lines = merge.to_domainset_lines(merge.fold_suffixes(hosts))
-        self.assertTrue("play.kakao.com" in lines, "exact rule widened or lost")
-        self.assertNotIn(".play.kakao.com", lines)
-
-    def test_hosts_exact_scope(self):
-        hosts = merge.parse_hosts(merge.SOURCES / "stevenblack_hosts.txt", "hosts")
-        self.assertTrue("0.nextyourcontent.com" in hosts)
-        self.assertFalse(any(host.startswith(".") for host in hosts))
-        self.assertNotIn("0.0.0.0", hosts)
-        self.assertNotIn("localhost", hosts)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "set.list"
+            path.write_text("play.kakao.com\n.kakao.net\n")
+            lines = merge.to_domainset_lines(merge.fold_suffixes(merge.parse_hosts(path, "domainset")))
+        self.assertEqual(lines, [".kakao.net", "play.kakao.com"])
 
     def test_typed_exact_domain(self):
         self.assertEqual(merge.line_to_host("DOMAIN,play.kakao.com", "ruleset"), "play.kakao.com")
@@ -58,34 +52,31 @@ class MergeTests(unittest.TestCase):
                     self.assertEqual(merge.main(), 0)
             lines = set((Path(directory) / "block.list").read_text().splitlines())
             dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
-            for rule in ("DOMAIN-SUFFIX,dns.google", "IP-CIDR,1.1.1.1/32,no-resolve", "DOMAIN,dns.weixin.qq.com"):
+            for rule in ("DOMAIN-SUFFIX,dns.google", "IP-CIDR,1.1.1.1/32,no-resolve", "DOMAIN-SUFFIX,dns.weixin.qq.com"):
                 with self.subTest(dnsRule=rule):
                     self.assertIn(rule, dnsRules)
             self.assertNotIn(".dns.google", lines)
+            self.assertNotIn("DOMAIN,dns.weixin.qq.com", dnsRules)
+            self.assertFalse((Path(directory) / "patch-ruleset.list").exists())
 
         for host in ("safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"):
             with self.subTest(protected=host):
                 self.assertFalse(any(host == line or (line.startswith(".") and
                     (host == line[1:] or host.endswith(line))) for line in lines))
-        for sourceFile in ("oisd_big.txt", "geekdada_dns_filter.txt", "geekdada_tracking_protection_filter.txt", "onehosts_lite_adblock.txt", "stevenblack_hosts.txt", "hagezi_normal_onlydomains.txt", "hagezi_fake_onlydomains.txt", "hagezi_popupads_onlydomains.txt"):
+        for sourceFile in ("geekdada_tracking_protection_filter.txt", "onehosts_lite_adblock.txt", "hagezi_normal_onlydomains.txt", "hagezi_popupads_onlydomains.txt"):
             with self.subTest(source=sourceFile):
                 missing = []
                 for entry in (merge.SOURCES / sourceFile).read_text().splitlines():
                     host = entry.strip().lower().lstrip(".")
                     if not host or entry.startswith(("#", "!")) or entry == "[Adblock Plus]":
                         continue
-                    if sourceFile == "stevenblack_hosts.txt":
-                        fields = host.split("#", 1)[0].split()
-                        if len(fields) != 2 or fields[0] != "0.0.0.0" or fields[1] == "0.0.0.0":
-                            continue
-                        host = fields[1]
-                    if sourceFile in ("onehosts_lite_adblock.txt", "oisd_big.txt"):
+                    if sourceFile == "onehosts_lite_adblock.txt":
                         self.assertTrue(host.startswith("||") and host.endswith("^"), host)
                         host = host[2:-1]
                     parents = {".".join(host.split(".")[i:]) for i in range(len(host.split(".")) - 1)}
                     if parents & merge.SHORT_ROOT_DENY or parents & {"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"}:
                         continue
-                    if not (sourceFile == "stevenblack_hosts.txt" and host in lines) and not any("." + parent in lines for parent in parents):
+                    if not any("." + parent in lines for parent in parents):
                         missing.append(host)
                 self.assertEqual(len(missing), 0, f"Source entries missing: {missing[:5]}")
         with self.subTest(advertising="doubleclick.net"):

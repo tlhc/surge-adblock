@@ -1,23 +1,8 @@
 # Surge RULE-SET: encrypted DNS and HTTPDNS endpoints
-# Generated: 2026-10-21 00:20:54 UTC+8
+# Generated: 2026-10-21 00:27:48 UTC+8
 # Sources: HaGeZi encrypted DNS domains + DoH IPv4 + BM7 BlockHttpDNS
 # Use without pre-matching; route Surge-generated DNS before this rule
-DOMAIN,dns.jd.com
-DOMAIN,dns.weibo.cn
-DOMAIN,dns.weixin.qq.com
-DOMAIN,dns.weixin.qq.com.cn
-DOMAIN,httpdns-api.aliyuncs.com
-DOMAIN,httpdns-sc.aliyuncs.com
-DOMAIN,httpdns.alicdn.com
-DOMAIN,httpdns.bilivideo.com
-DOMAIN,httpdns.c.cdnhwc2.com
 DOMAIN,httpdns.calorietech.com
-DOMAIN,httpdns.meituan.com
-DOMAIN,httpdns.music.163.com
-DOMAIN,httpdns.n.netease.com
-DOMAIN,httpdns.push.oppomobile.com
-DOMAIN,httpdns.volcengineapi.com
-DOMAIN,httpdns.yunxindns.com
 DOMAIN,lofter.httpdns.c.163.com
 DOMAIN,music.httpdns.c.163.com
 DOMAIN-SUFFIX,003153.xyz
