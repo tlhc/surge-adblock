@@ -11,7 +11,7 @@ import merge
 class FetchFallbackTests(unittest.TestCase):
     def test_failed_update_keeps_source_and_continues(self):
         oldData = (merge.SOURCES / "anti_ad_surge2.txt").read_bytes()
-        nextData = (merge.SOURCES / "awavenue_surge.list").read_bytes()
+        nextData = (merge.SOURCES / "bm7_advertising_lite_domain.list").read_bytes()
         catalog = {
             "first": {"file": "first.txt", "url": "https://first.invalid", "kind": "domainset", "label": "first"},
             "next": {"file": "next.txt", "url": "https://next.invalid", "kind": "domainset", "label": "next"},
@@ -37,10 +37,10 @@ class FetchFallbackTests(unittest.TestCase):
                 self.assertTrue(status["next"]["ok"])
                 self.assertEqual((sourceDir / "next.txt").read_bytes() == nextData, True)
 
-    def test_missing_banad_cache_preserves_outputs(self):
+    def test_missing_source_cache_preserves_outputs(self):
         status = {key: {"ok": True, "path": merge.SOURCES / meta["file"], "kind": meta["kind"]}
                   for key, meta in merge.SOURCES_META.items()}
-        status["banad"] = {"ok": False, "path": None, "kind": "ruleset"}
+        status["anti_ad"] = {"ok": False, "path": None, "kind": "domainset"}
         with tempfile.TemporaryDirectory() as directory:
             outDir = Path(directory)
             oldData = {path.name: path.read_bytes() for path in merge.OUT.iterdir() if path.is_file()}

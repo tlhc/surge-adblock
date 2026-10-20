@@ -5,7 +5,7 @@ Surge DOMAIN-SET merge.
 Merge domain sources, preserve exact matches, exclude protected services,
 then suffix-fold -> out/block.list.
 
-Also writes out/patch-ruleset.list (BanAD DOMAIN-SUFFIX only).
+Also writes out/dns-block-ruleset.list (encrypted DNS and HTTPDNS endpoints).
 """
 
 from __future__ import annotations
@@ -30,29 +30,11 @@ SGT = dt.timezone(dt.timedelta(hours=8), name="SGT")
 # Upstream catalog
 # ---------------------------------------------------------------------------
 SOURCES_META = {
-    "oisd_big": {
-        "url": "https://big.oisd.nl/",
-        "file": "oisd_big.txt",
-        "kind": "adblock",
-        "label": "OISD Big",
-    },
     "anti_ad": {
         "url": "https://anti-ad.net/surge2.txt",
         "file": "anti_ad_surge2.txt",
         "kind": "domainset",
         "label": "anti-AD surge2",
-    },
-    "awavenue": {
-        "url": "https://cdn.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Surge.list",
-        "file": "awavenue_surge.list",
-        "kind": "domainset",
-        "label": "AWAvenue Ads Rule",
-    },
-    "privacy": {
-        "url": "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Surge/Privacy/Privacy_Domain.list",
-        "file": "bm7_privacy_domain.list",
-        "kind": "domainset",
-        "label": "BM7 Privacy_Domain",
     },
     "advertising_lite": {
         "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite_Domain.list",
@@ -70,15 +52,6 @@ SOURCES_META = {
         "kind": "plain_hosts",  # bare host, no leading dot; NO *.wildcard
         "label": "HaGeZi Normal onlydomains",
     },
-    "hagezi_fake": {
-        "urls": [
-            "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/fake-onlydomains.txt",
-            "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@main/wildcard/fake-onlydomains.txt",
-        ],
-        "file": "hagezi_fake_onlydomains.txt",
-        "kind": "plain_hosts",
-        "label": "HaGeZi Fake",
-    },
     "hagezi_popupads": {
         "urls": [
             "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/popupads-onlydomains.txt",
@@ -87,12 +60,6 @@ SOURCES_META = {
         "file": "hagezi_popupads_onlydomains.txt",
         "kind": "plain_hosts",
         "label": "HaGeZi Pop-Up Ads",
-    },
-    "dns_filter": {
-        "url": "https://cdn.jsdelivr.net/gh/geekdada/surge-list/domain-set/dns-filter.txt",
-        "file": "geekdada_dns_filter.txt",
-        "kind": "domainset",
-        "label": "geekdada DNS filter",
     },
     "tracking_protection": {
         "url": "https://cdn.jsdelivr.net/gh/geekdada/surge-list/domain-set/tracking-protection-filter.txt",
@@ -105,12 +72,6 @@ SOURCES_META = {
         "file": "onehosts_lite_adblock.txt",
         "kind": "adblock",
         "label": "1Hosts Lite",
-    },
-    "stevenblack": {
-        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
-        "file": "stevenblack_hosts.txt",
-        "kind": "hosts",
-        "label": "StevenBlack Unified",
     },
     "doh_domains": {
         "url": "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/doh-onlydomains.txt",
@@ -129,13 +90,6 @@ SOURCES_META = {
         "file": "bm7_httpdns.list",
         "kind": "httpdns",
         "label": "BM7 BlockHttpDNS",
-    },
-    # companion RULE-SET only — never into the DOMAIN-SET
-    "banad": {
-        "url": "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanAD.list",
-        "file": "acl4ssr_banad.list",
-        "kind": "ruleset",
-        "label": "ACL4SSR BanAD",
     },
 }
 
@@ -166,8 +120,6 @@ def SourceIsValid(path: Path, kind: str) -> bool:
     try:
         if kind in ("ipv4", "httpdns"):
             return bool(ParseDnsRules(path, kind))
-        if kind == "ruleset":
-            return bool(parse_ruleset_domain_suffix(path))
         return bool(parse_hosts(path, kind))
     except (OSError, ValueError):
         return False
@@ -270,13 +222,6 @@ def line_to_host(line: str, kind: str) -> Optional[str]:
             if not s:
                 return None
 
-    if kind == "hosts":
-        fields = s.split()
-        if len(fields) != 2 or fields[0] != "0.0.0.0":
-            return None
-        host = fields[1].lower().rstrip(".")
-        return host if re.fullmatch(r"[a-z0-9_-]+(?:\.[a-z0-9_-]+)+", host) and is_valid_host(host) else None
-
     # AdGuard ||host^
     m = ADG_RE.match(s)
     if m:
@@ -349,29 +294,6 @@ def ParseDnsRules(path: Path, kind: str) -> List[str]:
         else:
             raise ValueError(f"Unsupported DNS rule: {line}")
     return sorted(rules)
-
-
-def parse_ruleset_domain_suffix(path: Path) -> List[str]:
-    """Extract DOMAIN-SUFFIX lines only (curated companion patch)."""
-    out: List[str] = []
-    seen: Set[str] = set()
-    with path.open("r", encoding="utf-8", errors="replace") as f:
-        for line in f:
-            s = line.strip()
-            if not s or COMMENT_RE.match(s):
-                continue
-            m = RULE_RE.match(s)
-            if not m:
-                continue
-            typ = m.group("typ").upper()
-            if typ != "DOMAIN-SUFFIX":
-                continue
-            body = m.group("body").strip().lower().lstrip(".")
-            if not is_valid_host(body) or body in seen:
-                continue
-            seen.add(body)
-            out.append(f"DOMAIN-SUFFIX,{body}")
-    return out
 
 
 # ---------------------------------------------------------------------------
@@ -455,8 +377,14 @@ def write_list(path: Path, lines: List[str], header: List[str]) -> int:
 # ---------------------------------------------------------------------------
 # Block set: exclude protected services, suffix-fold, then write out/block.list.
 # ---------------------------------------------------------------------------
-def unique_adds(candidate: Set[str], existing: Set[str]) -> Set[str]:
-    return candidate - existing
+BLOCK_SOURCES = (
+    "anti_ad",
+    "advertising_lite",
+    "hagezi_normal",
+    "hagezi_popupads",
+    "tracking_protection",
+    "onehosts_lite",
+)
 
 
 def main() -> int:
@@ -466,7 +394,7 @@ def main() -> int:
     loaded: Dict[str, Set[str]] = {}
     raw_counts: Dict[str, int] = {}
     for key, st in status.items():
-        if not st["ok"] or st["kind"] in ("ruleset", "ipv4", "httpdns"):
+        if not st["ok"] or st["kind"] in ("ipv4", "httpdns"):
             continue
         assert st["path"] is not None
         hosts = parse_hosts(st["path"], st["kind"])
@@ -487,25 +415,9 @@ def main() -> int:
             )
         return 1
 
-    oisd = set(loaded["oisd_big"])
-    anti = set(loaded.get("anti_ad", set()))
-    awa = set(loaded.get("awavenue", set()))
-    priv = set(loaded.get("privacy", set()))
-    lite = set(loaded.get("advertising_lite", set()))
-    hage = set(loaded.get("hagezi_normal", set()))
-
-    rec: Set[str] = set(oisd)
-    rec |= unique_adds(anti, rec)
-    rec |= awa
-    rec |= unique_adds(priv, rec)
-    rec |= unique_adds(lite, rec)
-    rec |= unique_adds(unique_adds(hage, oisd), rec)
-    rec |= loaded["hagezi_fake"]
-    rec |= loaded["hagezi_popupads"]
-    rec |= loaded["dns_filter"]
-    rec |= loaded["tracking_protection"]
-    rec |= loaded["onehosts_lite"]
-    rec |= loaded["stevenblack"]
+    rec: Set[str] = set()
+    for key in BLOCK_SOURCES:
+        rec |= loaded[key]
     rec = {
         h for h in rec
         if not any(
@@ -537,7 +449,7 @@ def main() -> int:
         header_common
         + [
             f"# Hosts: {len(rec_lines)}",
-            "# Contents: OISD Big + anti-AD + AWAvenue + BM7 Privacy + BM7 AdvertisingLite_Domain + HaGeZi Normal + HaGeZi Fake + HaGeZi Pop-Up Ads + geekdada DNS filter + geekdada Tracking Protection + 1Hosts Lite + StevenBlack Unified",
+            "# Contents: " + " + ".join(SOURCES_META[key]["label"] for key in BLOCK_SOURCES),
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
@@ -548,33 +460,20 @@ def main() -> int:
         "merged-aggressive.list",
         "recommended.list",
         "allowlist-surge.list",
+        "patch-ruleset.list",
     ):
         sp = OUT / stale
         if sp.exists():
             sp.unlink()
-
-    # ---- companion RULE-SET patch: curated DOMAIN-SUFFIX only from BanAD ----
-    # locked: NO wide KEYWORD/advert, NO URL-REGEX — DOMAIN-SUFFIX only (or empty + note)
-    patch_path = OUT / "patch-ruleset.list"
-    patch_lines: List[str] = []
-    banad_path = status.get("banad", {}).get("path")
-    if banad_path and Path(banad_path).is_file():
-        patch_lines = parse_ruleset_domain_suffix(Path(banad_path))
-    with patch_path.open("w", encoding="utf-8") as f:
-        f.write("# RULE-SET, DOMAIN-SUFFIX only\n")
-        f.write(f"# Generated: {ts}\n")
-        f.write("# Source: ACL4SSR BanAD\n")
-        f.write("# Subscribe separately from the DOMAIN-SET\n")
-        if not patch_lines:
-            f.write("# Empty\n")
-        for line in patch_lines:
-            f.write(line + "\n")
 
     dnsRules = {f"DOMAIN-SUFFIX,{host.lstrip('.')}" for host in loaded["doh_domains"]}
     for key in ("doh_ipv4", "httpdns"):
         rules = ParseDnsRules(status[key]["path"], status[key]["kind"])
         raw_counts[key] = len(rules)
         dnsRules.update(rules)
+    # DOMAIN-SUFFIX,host already covers DOMAIN,host
+    dnsRules = {rule for rule in dnsRules
+                if not (rule.startswith("DOMAIN,") and f"DOMAIN-SUFFIX,{rule[7:]}" in dnsRules)}
     dnsCount = write_list(OUT / "dns-block-ruleset.list", sorted(dnsRules), [
         "# Surge RULE-SET: encrypted DNS and HTTPDNS endpoints",
         f"# Generated: {ts}",
@@ -582,20 +481,7 @@ def main() -> int:
         "# Use without pre-matching; route Surge-generated DNS before this rule",
     ])
 
-    stats_rows = [
-        ("OISD Big", raw_counts.get("oisd_big", 0)),
-        ("anti-AD", raw_counts.get("anti_ad", 0)),
-        ("AWAvenue", raw_counts.get("awavenue", 0)),
-        ("BM7 Privacy", raw_counts.get("privacy", 0)),
-        ("BM7 AdvertisingLite_Domain", raw_counts.get("advertising_lite", 0)),
-        ("HaGeZi Normal", raw_counts.get("hagezi_normal", 0)),
-        ("HaGeZi Fake", raw_counts.get("hagezi_fake", 0)),
-        ("HaGeZi Pop-Up Ads", raw_counts.get("hagezi_popupads", 0)),
-        ("geekdada DNS filter", raw_counts.get("dns_filter", 0)),
-        ("geekdada Tracking Protection", raw_counts.get("tracking_protection", 0)),
-        ("1Hosts Lite", raw_counts.get("onehosts_lite", 0)),
-        ("StevenBlack Unified", raw_counts.get("stevenblack", 0)),
-    ]
+    stats_rows = [(SOURCES_META[key]["label"], raw_counts.get(key, 0)) for key in BLOCK_SOURCES]
     stats = "# Merge result\n\n| Source | Parsed hosts |\n|--------|-------------:|\n"
     for name, count in stats_rows:
         stats += f"| {name} | {count} |\n"
@@ -611,7 +497,6 @@ def main() -> int:
     print(f"  short-root filter removed: {len(short_roots_removed)}")
     if short_roots_removed:
         print("  " + ", ".join(sorted(short_roots_removed)))
-    print(f"  patch DOMAIN-SUFFIX: {len(patch_lines)}")
     return 0
 
 
