@@ -1,7 +1,7 @@
 # Surge DOMAIN-SET
-# Generated: 2026-10-25 00:17:00 UTC+8
+# Generated: 2026-10-26 00:17:13 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 350673
+# Hosts: 350674
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
 # Excludes Google/Tencent Safe Browsing service domains
 .0--4.com
@@ -210530,6 +210530,7 @@
 .pingoquidae.cyou
 .pingping888.com
 .pingpong.us
+.pingprove.com
 .pings.blip.tv
 .pings.vidpulse.com
 .pingshetrip.com

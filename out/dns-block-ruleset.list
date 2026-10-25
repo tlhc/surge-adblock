@@ -1,5 +1,5 @@
 # Surge RULE-SET: encrypted DNS and HTTPDNS endpoints
-# Generated: 2026-10-25 00:17:00 UTC+8
+# Generated: 2026-10-26 00:17:13 UTC+8
 # Sources: HaGeZi encrypted DNS domains + DoH IPv4 + BM7 BlockHttpDNS
 # Use without pre-matching; route Surge-generated DNS before this rule
 DOMAIN,httpdns.calorietech.com
