@@ -6,8 +6,8 @@
 # Issues: https://github.com/hagezi/dns-blocklists/issues
 # Disclaimer: https://github.com/hagezi/dns-blocklists/blob/main/README.md#disclaimer
 # Expires: 8 hours
-# Last modified: 31 Oct 2026 10:02 UTC
-# Version: 2026.1031.1002.34
+# Last modified: 01 Nov 2026 10:28 UTC
+# Version: 2026.1101.1028.42
 # Syntax: Domains (without subdomains)
 # Number of entries: 3505
 #
@@ -163,6 +163,7 @@ adguard.acrobyte.org
 adl.adfilter.net
 per.adfilter.net
 syd.adfilter.net
+dns.adfreedns.org
 dns.adguard.com
 dns-family.adguard.com
 dns-unfiltered.adguard.com
@@ -737,7 +738,6 @@ dns.demon-inc.tw
 doh.denypradana.com
 adguard.depieri.net
 adguard.dervart.ru
-dns.deshaveu.com
 adguard.lege.despagne.net
 adguard.rennes.despagne.net
 adguard.dessoi.cloud
