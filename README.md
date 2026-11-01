@@ -31,6 +31,16 @@ RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/dns-block
 
 Keep this subscription free of `pre-matching`, which would run before the protocol exception. The advertising DOMAIN-SET remains separate so its DNS-stage rejection does not intercept Surge's own encrypted resolvers. Endpoint lists cover listed services; private or unlisted encrypted DNS endpoints require additional controls.
 
+## UU Remote IP whitelist
+
+`out/uu_remote.list` contains exact IPv4 `/32` rules from the existing UU Remote rules in `TLHC.conf` and observed `UURemoteServer` connections. Comments distinguish configured endpoints, the unverified configured candidate, and observed HTTPS endpoints. The list covers all ports at each address.
+
+```ini
+RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/uu_remote.list,DIRECT,no-resolve
+```
+
+After publishing, place the subscription before `PROTOCOL,STUN,Proxy` and other forwarding rules. This is a manually maintained list; the daily generator leaves it unchanged.
+
 ## Modules
 
 `modules/Amap.sgmodule` removes Amap splash and in-app ads. Requires MITM; reinstall Amap after enabling.

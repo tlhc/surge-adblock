@@ -1,0 +1,9 @@
+# Surge RULE-SET: UU Remote exact destination IP whitelist
+# Configured STUN endpoints: TLHC.conf:109-110 (2026-11-01)
+IP-CIDR,61.163.30.10/32,no-resolve
+IP-CIDR,116.169.52.142/32,no-resolve
+# Configured candidate: TLHC.conf:112; current connection unverified
+IP-CIDR,123.139.125.244/32,no-resolve
+# UURemoteServer HTTPS/443: Surge requests 843169 and 843170 (2026-11-01)
+IP-CIDR,123.139.125.254/32,no-resolve
+IP-CIDR,221.204.93.18/32,no-resolve
