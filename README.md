@@ -31,15 +31,15 @@ RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/dns-block
 
 Keep this subscription free of `pre-matching`, which would run before the protocol exception. The advertising DOMAIN-SET remains separate so its DNS-stage rejection does not intercept Surge's own encrypted resolvers. Endpoint lists cover listed services; private or unlisted encrypted DNS endpoints require additional controls.
 
-## UU Remote IP whitelist
+## UU Remote rules
 
-`out/uu_remote.list` contains exact IPv4 `/32` rules from the existing UU Remote rules in `TLHC.conf` and observed `UURemoteServer` connections. Comments distinguish configured endpoints, the unverified configured candidate, and observed HTTPS endpoints. The list covers all ports at each address.
+`out/uu_remote.list` contains UU Remote and NetEase domain rules plus exact IPv4 `/32` rules from `TLHC.conf` and observed `UURemoteServer` connections. Comments distinguish configured endpoints, the unverified configured candidate, and observed HTTPS endpoints. IP entries cover all ports at each address.
 
 ```ini
-RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/uu_remote.list,DIRECT,no-resolve
+RULE-SET,https://raw.githubusercontent.com/tlhc/surge-adblock/main/out/uu_remote.list,DIRECT,no-resolve,extended-matching
 ```
 
-After publishing, place the subscription before `PROTOCOL,STUN,Proxy` and other forwarding rules. This is a manually maintained list; the daily generator leaves it unchanged.
+After publishing, place the subscription after higher-priority STUN rejection and domain-blocking rules, before general proxy, ASN, and GEOIP rules. `no-resolve` prevents IP entries from triggering DNS during rule matching; domain rules still match without a lookup. DIRECT resolves the hostname when connecting. This is a manually maintained list; the daily generator leaves it unchanged.
 
 ## Modules
 

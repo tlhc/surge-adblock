@@ -1,4 +1,10 @@
-# Surge RULE-SET: UU Remote exact destination IP whitelist
+# Surge RULE-SET: UU Remote
+DOMAIN-SUFFIX,163.com
+DOMAIN-SUFFIX,proxima.nie.netease.com
+DOMAIN,whoami-ipv4.nie.netease.com
+DOMAIN,adl.netease.com
+DOMAIN,uuyc.singleping.com
+
 # Configured STUN endpoints: TLHC.conf:109-110 (2026-11-01)
 IP-CIDR,61.163.30.10/32,no-resolve
 IP-CIDR,116.169.52.142/32,no-resolve
