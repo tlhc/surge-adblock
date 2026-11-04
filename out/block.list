@@ -1,7 +1,7 @@
 # Surge DOMAIN-SET
-# Generated: 2026-11-04 00:13:53 UTC+8
+# Generated: 2026-11-05 00:12:41 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 355253
+# Hosts: 355254
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
 # Excludes Google/Tencent Safe Browsing service domains
 .0--4.com
@@ -36623,6 +36623,7 @@
 .api-mktg.prettylittlething.com
 .api-music-analytics.deezer.com
 .api-napoli.store.sscnapoli.it
+.api-node.corvexa.cloud
 .api-notify.markarch.com
 .api-nxs-v4.mentamob.com
 .api-p.analytics.relay.link

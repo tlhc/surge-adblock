@@ -6,10 +6,10 @@
 | BM7 AdvertisingLite_Domain | 37692 |
 | HaGeZi Normal onlydomains | 179493 |
 | HaGeZi Pop-Up Ads | 77680 |
-| geekdada Tracking Protection | 118201 |
+| geekdada Tracking Protection | 118204 |
 | 1Hosts Lite | 102259 |
 
-`out/block.list`: 355253
+`out/block.list`: 355254
 
 | DNS source | Parsed rules |
 |------------|-------------:|
