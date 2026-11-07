@@ -29,6 +29,7 @@ class MergeTests(unittest.TestCase):
         self.assertEqual(
             merge.LOCAL_SUFFIX_HOSTS,
             {
+                ".ahdohpiechei.com",
                 ".mcdn.bilivideo.cn",
                 ".mcdn.bilivideo.com",
                 ".szbdyd.com",
@@ -155,8 +156,15 @@ class MergeTests(unittest.TestCase):
                 "ks-sh-tracker-02.biliapi.net",
                 "ali-bj-pcdn-99.biliapi.net",
                 "hw-sh-pcdn-99.biliapi.net",
+                "qrstuvwxyzab.com",
+                ".qrstuvwxyzab.com",
+                ".bilivideo.com",
+                ".bilivideo.cn",
             ):
                 self.assertNotIn(absent, lines)
+            self.assertIn(".ahdohpiechei.com", lines)
+            folded = merge.fold_suffixes({".ahdohpiechei.com", ".2026608071.ahdohpiechei.com", "2026608071.ahdohpiechei.com"})
+            self.assertEqual(folded, {".ahdohpiechei.com"})
             dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
             for rule in ("DOMAIN-SUFFIX,dns.google", "IP-CIDR,1.1.1.1/32,no-resolve", "DOMAIN-SUFFIX,dns.weixin.qq.com"):
                 with self.subTest(dnsRule=rule):

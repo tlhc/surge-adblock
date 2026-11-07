@@ -368,6 +368,7 @@ PROTECTED_HOSTS = frozenset({"safebrowsing.googleapis.com", "safebrowsing.urlsec
 # *pcdn*.biliapi.net cannot be represented as a DOMAIN-SET line and is not added.
 LOCAL_SUFFIX_HOSTS = frozenset(
     {
+        ".ahdohpiechei.com",
         ".mcdn.bilivideo.cn",
         ".mcdn.bilivideo.com",
         ".szbdyd.com",
