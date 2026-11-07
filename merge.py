@@ -363,6 +363,48 @@ def to_domainset_lines(hosts: Set[str]) -> List[str]:
 
 PROTECTED_HOSTS = frozenset({"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"})
 
+# DOMAIN-SUFFIX,host is stored as .host: the name and its subdomains.
+# These entries are merged on every run so a source refresh cannot drop them.
+# *pcdn*.biliapi.net cannot be represented as a DOMAIN-SET line and is not added.
+LOCAL_SUFFIX_HOSTS = frozenset(
+    {
+        ".mcdn.bilivideo.cn",
+        ".mcdn.bilivideo.com",
+        ".szbdyd.com",
+        ".mountaintoys.cn",
+    }
+)
+
+# Exact hostnames only. pcdn is inside the left label, so these are not a
+# pcdn.biliapi.net suffix, and unlisted numbers are not covered.
+LOCAL_EXACT_HOSTS = frozenset(
+    {
+        "ali-bj-pcdn-08.biliapi.net",
+        "ali-bj-pcdn-11.biliapi.net",
+        "ali-bj-pcdn-12.biliapi.net",
+        "ali-bj-pcdn-16.biliapi.net",
+        "ali-bj-pcdn-19.biliapi.net",
+        "ali-bj-pcdn-24.biliapi.net",
+        "ali-bj-pcdn-25.biliapi.net",
+        "ali-bj-pcdn-28.biliapi.net",
+        "ali-bj-pcdn-37.biliapi.net",
+        "ali-bj-pcdn-68.biliapi.net",
+        "hw-sh-pcdn-06.biliapi.net",
+        "hw-sh-pcdn-08.biliapi.net",
+        "hw-sh-pcdn-10.biliapi.net",
+        "hw-sh-pcdn-12.biliapi.net",
+        "hw-sh-pcdn-14.biliapi.net",
+        "hw-sh-pcdn-15.biliapi.net",
+        "hw-sh-pcdn-18.biliapi.net",
+        "hw-sh-pcdn-19.biliapi.net",
+        "hw-sh-pcdn-26.biliapi.net",
+        "hw-sh-pcdn-29.biliapi.net",
+        "hw-sh-pcdn-37.biliapi.net",
+        "hw-sh-pcdn-96.biliapi.net",
+        "hw-sh-pcdn-107.biliapi.net",
+        "hw-sh-pcdn-112.biliapi.net",
+    }
+)
 
 def write_list(path: Path, lines: List[str], header: List[str]) -> int:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -427,6 +469,8 @@ def main() -> int:
             for protected in PROTECTED_HOSTS
         )
     }
+    rec.update(LOCAL_SUFFIX_HOSTS)
+    rec.update(LOCAL_EXACT_HOSTS)
     rec_folded = fold_suffixes(rec)
     rec_folded, short_roots_removed = drop_short_roots(rec_folded)
 
@@ -450,6 +494,8 @@ def main() -> int:
         + [
             f"# Hosts: {len(rec_lines)}",
             "# Contents: " + " + ".join(SOURCES_META[key]["label"] for key in BLOCK_SOURCES),
+            "# Local suffix entries: " + ", ".join(sorted(LOCAL_SUFFIX_HOSTS)),
+            "# Local exact entries: " + ", ".join(sorted(LOCAL_EXACT_HOSTS)),
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )
