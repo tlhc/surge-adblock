@@ -375,6 +375,37 @@ LOCAL_SUFFIX_HOSTS = frozenset(
     }
 )
 
+# Exact hostnames only. pcdn is inside the left label, so these are not a
+# pcdn.biliapi.net suffix, and unlisted numbers are not covered.
+LOCAL_EXACT_HOSTS = frozenset(
+    {
+        "ali-bj-pcdn-08.biliapi.net",
+        "ali-bj-pcdn-11.biliapi.net",
+        "ali-bj-pcdn-12.biliapi.net",
+        "ali-bj-pcdn-16.biliapi.net",
+        "ali-bj-pcdn-19.biliapi.net",
+        "ali-bj-pcdn-24.biliapi.net",
+        "ali-bj-pcdn-25.biliapi.net",
+        "ali-bj-pcdn-28.biliapi.net",
+        "ali-bj-pcdn-37.biliapi.net",
+        "ali-bj-pcdn-68.biliapi.net",
+        "hw-sh-pcdn-06.biliapi.net",
+        "hw-sh-pcdn-08.biliapi.net",
+        "hw-sh-pcdn-10.biliapi.net",
+        "hw-sh-pcdn-12.biliapi.net",
+        "hw-sh-pcdn-14.biliapi.net",
+        "hw-sh-pcdn-15.biliapi.net",
+        "hw-sh-pcdn-18.biliapi.net",
+        "hw-sh-pcdn-19.biliapi.net",
+        "hw-sh-pcdn-26.biliapi.net",
+        "hw-sh-pcdn-29.biliapi.net",
+        "hw-sh-pcdn-37.biliapi.net",
+        "hw-sh-pcdn-96.biliapi.net",
+        "hw-sh-pcdn-107.biliapi.net",
+        "hw-sh-pcdn-112.biliapi.net",
+    }
+)
+
 def write_list(path: Path, lines: List[str], header: List[str]) -> int:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
@@ -439,6 +470,7 @@ def main() -> int:
         )
     }
     rec.update(LOCAL_SUFFIX_HOSTS)
+    rec.update(LOCAL_EXACT_HOSTS)
     rec_folded = fold_suffixes(rec)
     rec_folded, short_roots_removed = drop_short_roots(rec_folded)
 
@@ -463,6 +495,7 @@ def main() -> int:
             f"# Hosts: {len(rec_lines)}",
             "# Contents: " + " + ".join(SOURCES_META[key]["label"] for key in BLOCK_SOURCES),
             "# Local suffix entries: " + ", ".join(sorted(LOCAL_SUFFIX_HOSTS)),
+            "# Local exact entries: " + ", ".join(sorted(LOCAL_EXACT_HOSTS)),
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )

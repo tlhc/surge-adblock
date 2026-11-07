@@ -50,6 +50,60 @@ class MergeTests(unittest.TestCase):
         self.assertEqual(kept, set(merge.LOCAL_SUFFIX_HOSTS))
         self.assertEqual(removed, set())
 
+    def test_pcdn_exact_hosts(self):
+        self.assertEqual(
+            merge.LOCAL_EXACT_HOSTS,
+            {
+                "ali-bj-pcdn-08.biliapi.net",
+                "ali-bj-pcdn-11.biliapi.net",
+                "ali-bj-pcdn-12.biliapi.net",
+                "ali-bj-pcdn-16.biliapi.net",
+                "ali-bj-pcdn-19.biliapi.net",
+                "ali-bj-pcdn-24.biliapi.net",
+                "ali-bj-pcdn-25.biliapi.net",
+                "ali-bj-pcdn-28.biliapi.net",
+                "ali-bj-pcdn-37.biliapi.net",
+                "ali-bj-pcdn-68.biliapi.net",
+                "hw-sh-pcdn-06.biliapi.net",
+                "hw-sh-pcdn-08.biliapi.net",
+                "hw-sh-pcdn-10.biliapi.net",
+                "hw-sh-pcdn-12.biliapi.net",
+                "hw-sh-pcdn-14.biliapi.net",
+                "hw-sh-pcdn-15.biliapi.net",
+                "hw-sh-pcdn-18.biliapi.net",
+                "hw-sh-pcdn-19.biliapi.net",
+                "hw-sh-pcdn-26.biliapi.net",
+                "hw-sh-pcdn-29.biliapi.net",
+                "hw-sh-pcdn-37.biliapi.net",
+                "hw-sh-pcdn-96.biliapi.net",
+                "hw-sh-pcdn-107.biliapi.net",
+                "hw-sh-pcdn-112.biliapi.net",
+            },
+        )
+        rejected = {
+            "api.biliapi.net",
+            "app.biliapi.net",
+            "grpc.biliapi.net",
+            "mcdn-data.biliapi.net",
+            "ali-web-player-tracker.biliapi.net",
+            "hw-v2-web-player-tracker.biliapi.net",
+            "hw-web-player-tracker.biliapi.net",
+            "ks-sh-tracker-02.biliapi.net",
+            "ali-bj-pcdn-99.biliapi.net",
+            "hw-sh-pcdn-99.biliapi.net",
+            "biliapi.net",
+        }
+        for host in merge.LOCAL_EXACT_HOSTS:
+            self.assertEqual(merge.line_to_host(f"DOMAIN,{host}", "domainset"), host)
+            self.assertRegex(host, r"^(?:ali-bj-pcdn|hw-sh-pcdn)-[0-9]+\.biliapi\.net$")
+            self.assertNotIn("." + host, merge.LOCAL_SUFFIX_HOSTS)
+        self.assertTrue(rejected.isdisjoint(merge.LOCAL_EXACT_HOSTS))
+        kept, removed = merge.drop_short_roots(
+            merge.fold_suffixes(set(merge.LOCAL_SUFFIX_HOSTS) | set(merge.LOCAL_EXACT_HOSTS))
+        )
+        self.assertEqual(kept, set(merge.LOCAL_SUFFIX_HOSTS) | set(merge.LOCAL_EXACT_HOSTS))
+        self.assertEqual(removed, set())
+
     def test_exact_parent_keeps_child(self):
         self.assertEqual(
             merge.fold_suffixes({"sentry.io", ".o33249.ingest.sentry.io"}),
@@ -80,8 +134,29 @@ class MergeTests(unittest.TestCase):
             self.assertIn("# Local suffix entries: " + ", ".join(sorted(merge.LOCAL_SUFFIX_HOSTS)), lines)
             for entry in merge.LOCAL_SUFFIX_HOSTS:
                 self.assertIn(entry, lines)
-            for broad in (".biliapi.net", "biliapi.net", ".bilivideo.com", ".bilivideo.cn", "bilivideo.com", "bilivideo.cn"):
-                self.assertNotIn(broad, lines)
+            self.assertIn("# Local exact entries: " + ", ".join(sorted(merge.LOCAL_EXACT_HOSTS)), lines)
+            for host in merge.LOCAL_EXACT_HOSTS:
+                self.assertIn(host, lines)
+                self.assertNotIn("." + host, lines)
+            for absent in (
+                ".biliapi.net",
+                "biliapi.net",
+                ".bilivideo.com",
+                ".bilivideo.cn",
+                "bilivideo.com",
+                "bilivideo.cn",
+                "api.biliapi.net",
+                "app.biliapi.net",
+                "grpc.biliapi.net",
+                "mcdn-data.biliapi.net",
+                "ali-web-player-tracker.biliapi.net",
+                "hw-v2-web-player-tracker.biliapi.net",
+                "hw-web-player-tracker.biliapi.net",
+                "ks-sh-tracker-02.biliapi.net",
+                "ali-bj-pcdn-99.biliapi.net",
+                "hw-sh-pcdn-99.biliapi.net",
+            ):
+                self.assertNotIn(absent, lines)
             dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
             for rule in ("DOMAIN-SUFFIX,dns.google", "IP-CIDR,1.1.1.1/32,no-resolve", "DOMAIN-SUFFIX,dns.weixin.qq.com"):
                 with self.subTest(dnsRule=rule):
