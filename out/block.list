@@ -1,9 +1,9 @@
 # Surge DOMAIN-SET
 # Generated: 2026-11-07 23:24:18 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 368206
+# Hosts: 368207
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
-# Local suffix entries: .mcdn.bilivideo.cn, .mcdn.bilivideo.com, .mountaintoys.cn, .szbdyd.com
+# Local suffix entries: .ahdohpiechei.com, .mcdn.bilivideo.cn, .mcdn.bilivideo.com, .mountaintoys.cn, .szbdyd.com
 # Local exact entries: ali-bj-pcdn-08.biliapi.net, ali-bj-pcdn-11.biliapi.net, ali-bj-pcdn-12.biliapi.net, ali-bj-pcdn-16.biliapi.net, ali-bj-pcdn-19.biliapi.net, ali-bj-pcdn-24.biliapi.net, ali-bj-pcdn-25.biliapi.net, ali-bj-pcdn-28.biliapi.net, ali-bj-pcdn-37.biliapi.net, ali-bj-pcdn-68.biliapi.net, hw-sh-pcdn-06.biliapi.net, hw-sh-pcdn-08.biliapi.net, hw-sh-pcdn-10.biliapi.net, hw-sh-pcdn-107.biliapi.net, hw-sh-pcdn-112.biliapi.net, hw-sh-pcdn-12.biliapi.net, hw-sh-pcdn-14.biliapi.net, hw-sh-pcdn-15.biliapi.net, hw-sh-pcdn-18.biliapi.net, hw-sh-pcdn-19.biliapi.net, hw-sh-pcdn-26.biliapi.net, hw-sh-pcdn-29.biliapi.net, hw-sh-pcdn-37.biliapi.net, hw-sh-pcdn-96.biliapi.net
 # Excludes Google/Tencent Safe Browsing service domains
 .0--4.com
@@ -25491,6 +25491,7 @@
 .ahcyzs8888.com
 .ahdcrajmzbtvj.com
 .ahdd.adamhegge.com
+.ahdohpiechei.com
 .ahdpu.sugarmesmooth.com
 .aheadday.com
 .aheadgrow.com
