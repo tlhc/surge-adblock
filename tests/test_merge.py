@@ -25,6 +25,31 @@ class MergeTests(unittest.TestCase):
             {".doubleclick.net"},
         )
 
+    def test_pcdn_suffix_domainset_form(self):
+        self.assertEqual(
+            merge.LOCAL_SUFFIX_HOSTS,
+            {
+                ".mcdn.bilivideo.cn",
+                ".mcdn.bilivideo.com",
+                ".szbdyd.com",
+                ".mountaintoys.cn",
+            },
+        )
+        for entry in merge.LOCAL_SUFFIX_HOSTS:
+            host = entry[1:]
+            self.assertEqual(merge.line_to_host(f"DOMAIN-SUFFIX,{host}", "domainset"), entry)
+            self.assertNotIn("*", entry)
+            self.assertNotIn("biliapi.net", entry)
+        self.assertEqual(
+            merge.fold_suffixes({".mcdn.bilivideo.cn", ".a.mcdn.bilivideo.cn", "mcdn.bilivideo.cn"}),
+            {".mcdn.bilivideo.cn"},
+        )
+        self.assertIsNone(merge.line_to_host("*pcdn*.biliapi.net", "plain_hosts"))
+        self.assertIsNone(merge.line_to_host("DOMAIN-WILDCARD,*pcdn*.biliapi.net,REJECT", "domainset"))
+        kept, removed = merge.drop_short_roots(merge.fold_suffixes(merge.LOCAL_SUFFIX_HOSTS))
+        self.assertEqual(kept, set(merge.LOCAL_SUFFIX_HOSTS))
+        self.assertEqual(removed, set())
+
     def test_exact_parent_keeps_child(self):
         self.assertEqual(
             merge.fold_suffixes({"sentry.io", ".o33249.ingest.sentry.io"}),
@@ -50,7 +75,13 @@ class MergeTests(unittest.TestCase):
             with patch.object(merge, "fetch_all", return_value=status), patch.object(merge, "OUT", Path(directory)):
                 with contextlib.redirect_stdout(io.StringIO()):
                     self.assertEqual(merge.main(), 0)
-            lines = set((Path(directory) / "block.list").read_text().splitlines())
+            block_text = (Path(directory) / "block.list").read_text()
+            lines = set(block_text.splitlines())
+            self.assertIn("# Local suffix entries: " + ", ".join(sorted(merge.LOCAL_SUFFIX_HOSTS)), lines)
+            for entry in merge.LOCAL_SUFFIX_HOSTS:
+                self.assertIn(entry, lines)
+            for broad in (".biliapi.net", "biliapi.net", ".bilivideo.com", ".bilivideo.cn", "bilivideo.com", "bilivideo.cn"):
+                self.assertNotIn(broad, lines)
             dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
             for rule in ("DOMAIN-SUFFIX,dns.google", "IP-CIDR,1.1.1.1/32,no-resolve", "DOMAIN-SUFFIX,dns.weixin.qq.com"):
                 with self.subTest(dnsRule=rule):

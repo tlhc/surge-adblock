@@ -363,6 +363,17 @@ def to_domainset_lines(hosts: Set[str]) -> List[str]:
 
 PROTECTED_HOSTS = frozenset({"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"})
 
+# DOMAIN-SUFFIX,host is stored as .host: the name and its subdomains.
+# These entries are merged on every run so a source refresh cannot drop them.
+# *pcdn*.biliapi.net cannot be represented as a DOMAIN-SET line and is not added.
+LOCAL_SUFFIX_HOSTS = frozenset(
+    {
+        ".mcdn.bilivideo.cn",
+        ".mcdn.bilivideo.com",
+        ".szbdyd.com",
+        ".mountaintoys.cn",
+    }
+)
 
 def write_list(path: Path, lines: List[str], header: List[str]) -> int:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -427,6 +438,7 @@ def main() -> int:
             for protected in PROTECTED_HOSTS
         )
     }
+    rec.update(LOCAL_SUFFIX_HOSTS)
     rec_folded = fold_suffixes(rec)
     rec_folded, short_roots_removed = drop_short_roots(rec_folded)
 
@@ -450,6 +462,7 @@ def main() -> int:
         + [
             f"# Hosts: {len(rec_lines)}",
             "# Contents: " + " + ".join(SOURCES_META[key]["label"] for key in BLOCK_SOURCES),
+            "# Local suffix entries: " + ", ".join(sorted(LOCAL_SUFFIX_HOSTS)),
             "# Excludes Google/Tencent Safe Browsing service domains",
         ],
     )

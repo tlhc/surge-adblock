@@ -14,6 +14,8 @@ The update interval is 86400 seconds. Put this line in `[Rule]` before general f
 
 Contents: anti-AD + [BM7 AdvertisingLite_Domain](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite_Domain.list) + HaGeZi Normal + HaGeZi Pop-Up Ads + [geekdada Tracking Protection](https://github.com/geekdada/surge-list) + [1Hosts Lite](https://github.com/badmojr/1Hosts), deduplicated and suffix-folded. HaGeZi's wildcard-domain feeds and 1Hosts Lite's `||host^` rules retain suffix matching. Exact DOMAIN-SET entries retain exact matching, following the [Surge format](https://manual.nssurge.com/rules/domain.html).
 
+The same file keeps the suffix entries `.mcdn.bilivideo.cn`, `.mcdn.bilivideo.com`, `.szbdyd.com`, and `.mountaintoys.cn`. `*pcdn*.biliapi.net` is not included: a DOMAIN-SET line cannot represent that wildcard, tracked sources have no concrete host that matches it, and `biliapi.net` is not added.
+
 `safebrowsing.googleapis.com` and `safebrowsing.urlsec.qq.com`, their subdomains, and suffix rules covering them are excluded before folding. The existing short-root exclusions in `merge.py` apply after folding.
 
 Generate with `python3 merge.py`; validate with `python3 -W error -m unittest discover -s tests -v`. Tests use downloaded files in `sources/`. Each source updates independently. Failed downloads and responses with no valid rules retain the previous valid source; updates continue with the next source. If a source has neither a valid download nor a valid cached file, generation stops before changing outputs. Broader DNS coverage still requires application-level checks for false positives.

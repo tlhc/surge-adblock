@@ -1,8 +1,9 @@
 # Surge DOMAIN-SET
 # Generated: 2026-11-07 00:13:15 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 363711
+# Hosts: 363714
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
+# Local suffix entries: .mcdn.bilivideo.cn, .mcdn.bilivideo.com, .mountaintoys.cn, .szbdyd.com
 # Excludes Google/Tencent Safe Browsing service domains
 .0--4.com
 .0--d.com
@@ -185113,6 +185114,8 @@
 .mcdmetric.aaa.com
 .mcdmetrics.aaa.com
 .mcdmetrics2.aaa.com
+.mcdn.bilivideo.cn
+.mcdn.bilivideo.com
 .mcdonal.fujicandy-balibalione.net
 .mcdonalds-donneescorporate.fr
 .mcdonaldsrestaurant.fr
@@ -197093,6 +197096,7 @@
 .mountainmon.shop
 .mountainous-statement.com
 .mountainsubmerge.com
+.mountaintoys.cn
 .mountaistorenmovers.com
 .mountedbattery.com
 .mounteehut.com

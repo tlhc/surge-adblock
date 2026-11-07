@@ -9,7 +9,7 @@
 | geekdada Tracking Protection | 119134 |
 | 1Hosts Lite | 102259 |
 
-`out/block.list`: 363711
+`out/block.list`: 363714
 
 | DNS source | Parsed rules |
 |------------|-------------:|
