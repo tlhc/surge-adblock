@@ -1,7 +1,7 @@
 # Surge DOMAIN-SET
-# Generated: 2026-11-15 17:19:38 UTC+8
+# Generated: 2026-11-15 18:38:25 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 374333
+# Hosts: 374313
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
 # Local suffix entries: .ahdohpiechei.com, .mcdn.bilivideo.cn, .mcdn.bilivideo.com, .mountaintoys.cn, .szbdyd.com
 # Local exact entries: ali-bj-pcdn-08.biliapi.net, ali-bj-pcdn-11.biliapi.net, ali-bj-pcdn-12.biliapi.net, ali-bj-pcdn-16.biliapi.net, ali-bj-pcdn-19.biliapi.net, ali-bj-pcdn-24.biliapi.net, ali-bj-pcdn-25.biliapi.net, ali-bj-pcdn-28.biliapi.net, ali-bj-pcdn-37.biliapi.net, ali-bj-pcdn-68.biliapi.net, hw-sh-pcdn-06.biliapi.net, hw-sh-pcdn-08.biliapi.net, hw-sh-pcdn-10.biliapi.net, hw-sh-pcdn-107.biliapi.net, hw-sh-pcdn-112.biliapi.net, hw-sh-pcdn-12.biliapi.net, hw-sh-pcdn-14.biliapi.net, hw-sh-pcdn-15.biliapi.net, hw-sh-pcdn-18.biliapi.net, hw-sh-pcdn-19.biliapi.net, hw-sh-pcdn-26.biliapi.net, hw-sh-pcdn-29.biliapi.net, hw-sh-pcdn-37.biliapi.net, hw-sh-pcdn-96.biliapi.net
@@ -40973,7 +40973,6 @@
 .apihost-whatsapp.com
 .apihub-whatsapp.com
 .apiiksn.top
-.apiinit.amap.com
 .apiip.net
 .apikey.map.qq.com
 .apikqcc1.ksapisrv.com
@@ -43080,7 +43079,6 @@
 .apsoacou.xyz
 .apsolution.work
 .apsqsgwecrclz.site
-.apsrgeo.amap.com
 .apssdc.epoise.com
 .apssdctest.epoise.com
 .apt-country.com
@@ -66530,7 +66528,6 @@
 .chat.sakuralive.com
 .chat.sociomile.com
 .chat.voice-datings.workers.dev
-.chat1.jd.com
 .chat24.io
 .chatathletecontempt.com
 .chatauth-whatsapp.com
@@ -123697,7 +123694,6 @@
 .gi.xyz
 .gi7a.structube.com
 .gi7n1lmo4o.com
-.gia.jd.com
 .giacosdila.net
 .giadinh.org
 .giafroge.biz
@@ -127757,8 +127753,6 @@
 .grapevinecounselingandtherapy.com
 .grapewinesales.com
 .graph-9-1.net.mydays.de
-.graph-fallback.instagram.com
-.graph.instagram.com
 .graph0-8-0.net.mydays.de
 .graph1-01.net.mydays.de
 .graph2-6-2.net.mydays.de
@@ -147183,7 +147177,6 @@
 .img-s.dalyfeds.com
 .img-static.tech
 .img-taboola.com
-.img-x.jd.com
 .img.0279.net
 .img.12584.cn
 .img.175532.com
@@ -147364,7 +147357,6 @@
 .img16.diyifanwen.com
 .img18.com
 .img2.126.net
-.img2.360buyimg.com
 .img2.578965.com
 .img2.autoimg.cn
 .img2.cs153.com
@@ -153818,7 +153810,6 @@
 .jan19.zhiyueit.com
 .jana1.jeoway.net
 .janadopect.com
-.janapi.jd.com
 .janasarokarpost.com
 .janbinqhoa.com
 .jancura-kapital.org
@@ -159834,7 +159825,6 @@
 .kepir.app
 .kepismotiles.cyou
 .kepler-37b.com
-.kepler.jd.com
 .keplr-secure.live
 .keplr.at
 .kepqkimmiqcjp.space
@@ -184218,7 +184208,6 @@
 .mapi.datarudder.com
 .mapi.juniorneves.com.br
 .mapi.keilaneves.com.br
-.mapi.m.jd.com
 .mapia.fkapi.net
 .mapib.fkapi.net
 .mapir.fkapi.net
@@ -230648,7 +230637,6 @@
 .policy-jrnl-sa.vidaahub.com
 .policy-jrnl.vidaahub.com
 .policy.bigfishgames.com
-.policy.jd.com
 .policy.video.iqiyi.com
 .policy.video.ptqy.gitv.tv
 .policycenter-auth-check.vercel.app
@@ -240088,7 +240076,6 @@
 .r1stpps434.cfd
 .r1uwn95z2r4wxj315qkpefkrxf.cfd
 .r1ztni.oui.sncf
-.r2.sn-gxuo03g-3c2l.googlevideo.com
 .r2.tschewang.com
 .r209.ylakarjala.fi
 .r255.wmtw.com
@@ -240123,7 +240110,6 @@
 .r4uws5iu3g.com
 .r4you.co
 .r5.com
-.r5.sn-q4flrner.googlevideo.com
 .r528e.cn
 .r541.houstonchronicle.com
 .r566.timescall.com
@@ -269582,7 +269568,6 @@
 .simg.mgsgamesonline.com
 .simg.premium.com
 .simg.sh.bwin.de
-.simg.sinajs.cn
 .simg.yemeksepeti.com
 .simhtgguozodp.online
 .simi.sleekflame.com
@@ -298669,7 +298654,6 @@
 .static-ads.zaloapp.com
 .static-adtech.wink.ru
 .static-adv.mediaset.net
-.static-alias-1.360buyimg.com
 .static-analytics.3dexperience.3ds.com
 .static-assets.dev.fs.liveperson.com
 .static-assets.vanvast.nl
@@ -306816,11 +306800,9 @@
 .syndication.teleborsa.it
 .syndication.theguardian.com
 .syndication.trafficreps.com
-.syndication.twitter.com
 .syndication.universalnightlife.com
 .syndication.whibd.com
 .syndication.whibm.com
-.syndication.x.com
 .syndicpop.com
 .syndopop.com
 .syndromehart.com
@@ -345678,7 +345660,6 @@
 .widget.thuiswinkel.org
 .widget.tippebannere.no
 .widget.trustpilot.com
-.widget.weibo.com
 .widget.ybug.io
 .widget.yourgood.app
 .widget.zenback.jp
@@ -373021,7 +373002,6 @@ widgets.privateproperty.com.ng
 widgets.seekitlocal.com
 widgets.solaramerica.org
 widgets.tapiture.com
-widgets.twimg.com
 widpzvyx.com
 wiewsulznyncf.com
 wiffqhum.com

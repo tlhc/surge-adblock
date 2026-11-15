@@ -369,19 +369,32 @@ PROTECTED_HOSTS = frozenset({"safebrowsing.googleapis.com", "safebrowsing.urlsec
 
 # Functional services whose own suffix rule is over-broad.
 # Exact names only, removed before suffix folding, so more-specific hosts stay.
-# Covering parents (qq.com, googleapis.com, and similar) are not removed.
+# Covering parents (qq.com, googleapis.com, jd.com, and similar) are not removed.
+# JD image/API, Amap init, Instagram Graph, YouTube edges, X embeds, and Weibo
+# image/widget names have no source child, so exact deny uncovers nothing.
 SERVICE_EXACT_DENY = frozenset(
     {
         "aedns.weixin.qq.com",
         "amdc.alipay.com",
         "amdc.m.taobao.com",
         "amdcopen.m.taobao.com",
+        "apiinit.amap.com",
+        "apsrgeo.amap.com",
         "bilibili.cn",
+        "chat1.jd.com",
         "clientservices.googleapis.com",
         "game.bilibili.com",
+        "gia.jd.com",
+        "graph-fallback.instagram.com",
+        "graph.instagram.com",
         "gvt2.com",
         "hybrid.miniapp.taobao.com",
+        "img-x.jd.com",
+        "img2.360buyimg.com",
+        "janapi.jd.com",
         "ju.taobao.com",
+        "kepler.jd.com",
+        "mapi.m.jd.com",
         "nexus.officeapps.live.com",
         "nexusrules.officeapps.live.com",
         "nsp-appgallery-cmsimg3az-drcn.obs.cn-north-2.myhuaweicloud.com",
@@ -391,8 +404,17 @@ SERVICE_EXACT_DENY = frozenset(
         "obs.cn-north-4.myhuaweicloud.com",
         "obs.cn-south-1.myhuaweicloud.com",
         "onepass.geetest.com",
+        "policy.jd.com",
         "presence.teams.live.com",
+        "r2.sn-gxuo03g-3c2l.googlevideo.com",
+        "r5.sn-q4flrner.googlevideo.com",
+        "simg.sinajs.cn",
+        "static-alias-1.360buyimg.com",
+        "syndication.twitter.com",
+        "syndication.x.com",
         "szlong.weixin.qq.com",
+        "widget.weibo.com",
+        "widgets.twimg.com",
     }
 )
 
