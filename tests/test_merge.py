@@ -167,6 +167,33 @@ class MergeTests(unittest.TestCase):
             ".game.bilibili.com",
             ".cm.game.bilibili.com",
             ".bilibili.cn",
+            ".img2.360buyimg.com",
+            ".cdn.img2.360buyimg.com",
+            ".static-alias-1.360buyimg.com",
+            ".gia.jd.com",
+            ".img-x.jd.com",
+            ".ads.img-x.jd.com",
+            ".im-x.jd.com",
+            ".chat1.jd.com",
+            ".kepler.jd.com",
+            ".janapi.jd.com",
+            ".mapi.m.jd.com",
+            ".policy.jd.com",
+            ".dns.jd.com",
+            ".apiinit.amap.com",
+            ".apsrgeo.amap.com",
+            ".graph.instagram.com",
+            ".graph-fallback.instagram.com",
+            ".r2.sn-gxuo03g-3c2l.googlevideo.com",
+            ".r5.sn-q4flrner.googlevideo.com",
+            ".syndication.twitter.com",
+            ".syndication.x.com",
+            "widgets.twimg.com",
+            ".widgets.twimg.com",
+            ".simg.sinajs.cn",
+            ".widget.weibo.com",
+            ".dns.weibo.cn",
+            ".ads-i1.xhscdn.com",
             ".ahdohpiechei.com",
             "ali-bj-pcdn-08.biliapi.net",
             ".pay.com",
@@ -201,6 +228,27 @@ class MergeTests(unittest.TestCase):
             ".nsp-appgallery-cmsimg3az-drcn.obs.cn-north-2.myhuaweicloud.com",
             ".game.bilibili.com",
             ".bilibili.cn",
+            ".img2.360buyimg.com",
+            ".static-alias-1.360buyimg.com",
+            ".gia.jd.com",
+            ".img-x.jd.com",
+            ".chat1.jd.com",
+            ".kepler.jd.com",
+            ".janapi.jd.com",
+            ".mapi.m.jd.com",
+            ".policy.jd.com",
+            ".apiinit.amap.com",
+            ".apsrgeo.amap.com",
+            ".graph.instagram.com",
+            ".graph-fallback.instagram.com",
+            ".r2.sn-gxuo03g-3c2l.googlevideo.com",
+            ".r5.sn-q4flrner.googlevideo.com",
+            ".syndication.twitter.com",
+            ".syndication.x.com",
+            "widgets.twimg.com",
+            ".widgets.twimg.com",
+            ".simg.sinajs.cn",
+            ".widget.weibo.com",
         ):
             self.assertIn(entry, removed)
             self.assertNotIn(entry, kept)
@@ -216,6 +264,12 @@ class MergeTests(unittest.TestCase):
             ".incentive.kwai.com",
             ".az1-incentive.kwai.com",
             ".cm.game.bilibili.com",
+            ".cdn.img2.360buyimg.com",
+            ".ads.img-x.jd.com",
+            ".im-x.jd.com",
+            ".dns.jd.com",
+            ".dns.weibo.cn",
+            ".ads-i1.xhscdn.com",
             ".ahdohpiechei.com",
             "ali-bj-pcdn-08.biliapi.net",
             ".pay.com",
@@ -226,13 +280,51 @@ class MergeTests(unittest.TestCase):
         self.assertFalse(merge.service_excluded(".wxsnsad.tc.qq.com"))
         self.assertFalse(merge.service_excluded("ali-bj-pcdn-08.biliapi.net"))
         self.assertFalse(merge.service_excluded(".ahdohpiechei.com"))
+        self.assertFalse(merge.service_excluded(".im-x.jd.com"))
+        self.assertFalse(merge.service_excluded(".dns.jd.com"))
+        self.assertFalse(merge.service_excluded(".dns.weibo.cn"))
+        self.assertFalse(merge.service_excluded(".ads.img-x.jd.com"))
+        self.assertFalse(merge.service_excluded(".cdn.img2.360buyimg.com"))
         self.assertTrue(merge.service_excluded(".wxa.wxs.qq.com"))
+        self.assertTrue(merge.service_excluded("widgets.twimg.com"))
+        for name in (
+            "img2.360buyimg.com",
+            "static-alias-1.360buyimg.com",
+            "gia.jd.com",
+            "img-x.jd.com",
+            "chat1.jd.com",
+            "kepler.jd.com",
+            "janapi.jd.com",
+            "mapi.m.jd.com",
+            "policy.jd.com",
+            "apiinit.amap.com",
+            "apsrgeo.amap.com",
+            "graph.instagram.com",
+            "graph-fallback.instagram.com",
+            "r2.sn-gxuo03g-3c2l.googlevideo.com",
+            "r5.sn-q4flrner.googlevideo.com",
+            "syndication.twitter.com",
+            "syndication.x.com",
+            "widgets.twimg.com",
+            "simg.sinajs.cn",
+            "widget.weibo.com",
+        ):
+            self.assertIn(name, merge.SERVICE_EXACT_DENY)
+            self.assertNotIn(name, merge.SERVICE_TREE_DENY)
+            self.assertTrue(merge.service_excluded(name))
+            self.assertTrue(merge.service_excluded("." + name))
+            self.assertFalse(merge.service_excluded("cdn." + name))
         folded = merge.fold_suffixes(kept)
         self.assertIn(".wxsnsad.tc.qq.com", folded)
         self.assertIn(".alibabagroup.obs.cn-north-1.myhuaweicloud.com", folded)
         self.assertIn(".beacons.gvt2.com", folded)
         self.assertIn(".h5-ad-intl.kwai.com", folded)
         self.assertIn(".cm.game.bilibili.com", folded)
+        self.assertIn(".cdn.img2.360buyimg.com", folded)
+        self.assertIn(".ads.img-x.jd.com", folded)
+        self.assertIn(".im-x.jd.com", folded)
+        self.assertIn(".dns.jd.com", folded)
+        self.assertIn(".dns.weibo.cn", folded)
         self.assertIn(".ahdohpiechei.com", folded)
         self.assertIn("ali-bj-pcdn-08.biliapi.net", folded)
 
@@ -325,8 +417,44 @@ class MergeTests(unittest.TestCase):
                 ".az2-incentive.kwai.com",
                 ".az3-incentive.kwai.com",
                 ".cm.game.bilibili.com",
+                ".im-x.jd.com",
+                ".dns.jd.com",
+                ".dns.weibo.cn",
+                ".ads-i1.xhscdn.com",
+                ".ads-static.xhscdn.com",
+                ".addata.jd.com",
+                ".ads.union.jd.com",
+                ".optimus-ads.amap.com",
+                ".ads.twitter.com",
+                ".ads.x.com",
+                ".ad.weibo.com",
             ):
                 self.assertIn(entry, lines)
+            functional = {
+                "img2.360buyimg.com",
+                "static-alias-1.360buyimg.com",
+                "gia.jd.com",
+                "img-x.jd.com",
+                "chat1.jd.com",
+                "kepler.jd.com",
+                "janapi.jd.com",
+                "mapi.m.jd.com",
+                "policy.jd.com",
+                "apiinit.amap.com",
+                "apsrgeo.amap.com",
+                "graph.instagram.com",
+                "graph-fallback.instagram.com",
+                "r2.sn-gxuo03g-3c2l.googlevideo.com",
+                "r5.sn-q4flrner.googlevideo.com",
+                "syndication.twitter.com",
+                "syndication.x.com",
+                "widgets.twimg.com",
+                "simg.sinajs.cn",
+                "widget.weibo.com",
+            }
+            for name in functional:
+                self.assertNotIn(name, lines)
+                self.assertNotIn("." + name, lines)
             folded = merge.fold_suffixes({".ahdohpiechei.com", ".2026608071.ahdohpiechei.com", "2026608071.ahdohpiechei.com"})
             self.assertEqual(folded, {".ahdohpiechei.com"})
             dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
