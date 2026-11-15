@@ -1,7 +1,7 @@
 # Surge DOMAIN-SET
-# Generated: 2026-11-15 17:11:59 UTC+8
+# Generated: 2026-11-15 17:19:38 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 374374
+# Hosts: 374333
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
 # Local suffix entries: .ahdohpiechei.com, .mcdn.bilivideo.cn, .mcdn.bilivideo.com, .mountaintoys.cn, .szbdyd.com
 # Local exact entries: ali-bj-pcdn-08.biliapi.net, ali-bj-pcdn-11.biliapi.net, ali-bj-pcdn-12.biliapi.net, ali-bj-pcdn-16.biliapi.net, ali-bj-pcdn-19.biliapi.net, ali-bj-pcdn-24.biliapi.net, ali-bj-pcdn-25.biliapi.net, ali-bj-pcdn-28.biliapi.net, ali-bj-pcdn-37.biliapi.net, ali-bj-pcdn-68.biliapi.net, hw-sh-pcdn-06.biliapi.net, hw-sh-pcdn-08.biliapi.net, hw-sh-pcdn-10.biliapi.net, hw-sh-pcdn-107.biliapi.net, hw-sh-pcdn-112.biliapi.net, hw-sh-pcdn-12.biliapi.net, hw-sh-pcdn-14.biliapi.net, hw-sh-pcdn-15.biliapi.net, hw-sh-pcdn-18.biliapi.net, hw-sh-pcdn-19.biliapi.net, hw-sh-pcdn-26.biliapi.net, hw-sh-pcdn-29.biliapi.net, hw-sh-pcdn-37.biliapi.net, hw-sh-pcdn-96.biliapi.net
@@ -39442,7 +39442,6 @@
 .api-secure.carrottrack.app
 .api-sentry.ws.126.net
 .api-sg.tingot.com
-.api-shop.kwai.com
 .api-shoulei-ssl.xunlei.com
 .api-shrek.net.jumia.com.gh
 .api-staging.mindbox.ru
@@ -40239,7 +40238,6 @@
 .api.ksapisrv.com
 .api.ktplay.com
 .api.kudaplox.com
-.api.kwai.com
 .api.kwaizt.com
 .api.laatus.com.br
 .api.lab8oficial.com.br
@@ -47540,30 +47538,9 @@
 .az-rdx2-lgtvsdp-com.aws-prd.net
 .az.appstore.vivo.com.cn
 .az.nzn.io
-.az1-app.kwai.com
-.az1-h5.kwai.com
 .az1-incentive.kwai.com
-.az1-m-creative.kwai.com
-.az1-m-game.kwai.com
-.az1-m-live.kwai.com
-.az1-m-shop.kwai.com
-.az1-m-wallet.kwai.com
-.az2-app.kwai.com
-.az2-h5.kwai.com
 .az2-incentive.kwai.com
-.az2-m-creative.kwai.com
-.az2-m-game.kwai.com
-.az2-m-live.kwai.com
-.az2-m-shop.kwai.com
-.az2-m-wallet.kwai.com
-.az3-app.kwai.com
-.az3-h5.kwai.com
 .az3-incentive.kwai.com
-.az3-m-creative.kwai.com
-.az3-m-game.kwai.com
-.az3-m-live.kwai.com
-.az3-m-shop.kwai.com
-.az3-m-wallet.kwai.com
 .az416426.vo.msecnd.net
 .az693360.vo.msecnd.net
 .az703ii1x7.cfd
@@ -64943,7 +64920,6 @@
 .cdn.komentary.aol.com
 .cdn.ksapisrv.com
 .cdn.ktbch.cloud
-.cdn.kwai.com
 .cdn.leadbit.com
 .cdn.leovegas.com
 .cdn.linkster.co
@@ -119677,7 +119653,6 @@
 .g-api-eu.ekatox.com
 .g-api-us.ekatox.com
 .g-api.ekatox.com
-.g-api.kwai.com
 .g-br-cdn.kwai.net.iberostar.com
 .g-chrome-google.com.cn
 .g-fallback.whatsapp.net.iberostar.com
@@ -120473,7 +120448,6 @@
 .game.ifeng.com
 .game.kugou.com
 .game.kuwo.cn
-.game.kwai.com
 .game.letvstore.com
 .game.pps.tv
 .game.qidian.com
@@ -136262,7 +136236,6 @@
 .h5-page.com
 .h5.holalauncher.com
 .h5.jiumaster.com
-.h5.kwai.com
 .h5.mse.360.cn
 .h5.pk1179.com
 .h5.super-dreamers.com
@@ -158258,6 +158231,7 @@
 .jzzdsu.piscineshop.com
 .jzzjziamgjcle.online
 .jzzk.net
+.k-ad.region.kwai.com
 .k-analytix.com
 .k-apotheke.de
 .k-beautio.shop
@@ -158310,7 +158284,6 @@
 .k.kompava.si
 .k.kompava.sk
 .k.krito.be
-.k.kwai.com
 .k.kwslovenia.com
 .k.laredoute.ch
 .k.laredoute.co.uk
@@ -177541,7 +177514,6 @@
 .loamedstella.cfd
 .loamierallice.cyou
 .loan-quick-online.com
-.loan.kwai.com
 .loanaircraft.com
 .loandatec.com
 .loanedcylices.cfd
@@ -181977,17 +181949,14 @@
 .m-fidelity.com
 .m-firefox.com
 .m-freeway.com
-.m-game.kwai.com
 .m-hub.info
 .m-i4.cn
 .m-img.org
 .m-live.jp
-.m-live.kwai.com
 .m-lotosystems.com
 .m-metrics.capitalone.com
 .m-pathy.com
 .m-rtb.com
-.m-shop.kwai.com
 .m-sicherekauf.de
 .m-store.gronard.de
 .m-stratovibe.prod.suno.com
@@ -182414,7 +182383,6 @@
 .m.ksapisrv.com
 .m.ksttwz.com
 .m.kubiqq.com
-.m.kwai.com
 .m.kzqcs.com
 .m.l620e.cn
 .m.ladrillos.ar
@@ -192637,7 +192605,6 @@
 .media-talk.ru
 .media-titanium.cursecdn.com
 .media-voigt.de
-.media-watchmen-delay.kwai.com
 .media-weber.com
 .media.2011.8684.com
 .media.accdn.dev
@@ -212820,7 +212787,6 @@
 .nsoft-s.com
 .nsoibm.link
 .nsomedidm.xyz
-.nsp-appgallery-cmsimg3az-drcn.obs.cn-north-2.myhuaweicloud.com
 .nsp-logservice-hiview-p01-drru.obs.ru-northwest-2.myhuaweicloud.ru
 .nsp-logservice-hiview-p05-dra.obs.ap-southeast-3.myhuaweicloud.com
 .nsp-logservice-hiview-p06-dra.obs.ap-southeast-3.myhuaweicloud.com
@@ -212992,7 +212958,6 @@
 .ntoftheusysianedt.info
 .ntonio.de
 .ntopcd.underarmour.nl
-.ntp.kwai.com
 .ntp.ynuf.aliapp.org
 .ntp1.rottne.com
 .ntpddq.com
@@ -242770,7 +242735,6 @@
 .regio-treuhand.de
 .region.ihuman.com
 .region.ksapisrv.com
-.region.kwai.com
 .regionads.ru
 .regionalavouchcreeping.com
 .regionalstorydesk.click
@@ -249837,7 +249801,6 @@
 .s.kottisdesign.gr
 .s.kreditucentras.lt
 .s.krepubliq.com
-.s.kwai.com
 .s.l8l9.com
 .s.lagshoppen.se
 .s.larochelle1.com
@@ -262252,7 +262215,6 @@
 .sg.jointaxattorneysofamerica.com
 .sg.kapi.vc
 .sg.klokdakkapellen.nl
-.sg.kwai.com
 .sg.log.ulivetv.net
 .sg.lucanet.com
 .sg.mattisons.com
@@ -329777,7 +329739,6 @@
 .ug-sg.capcutapi.com
 .ug-va.capcutapi.com
 .ug.baidu.com
-.ug.kwai.com
 .ug.snssdk.com
 .ug.urban-goddess.com
 .ug2k8bslb.com
@@ -335233,7 +335194,6 @@
 .vaamsmgfreocmroe-1342087530.cos.sa-saopaulo.myqcloud.com
 .vaatjcfcwvjsa.space
 .vaatmetu.net
-.vaaz2-m-shop.kwai.com
 .vaazaraokaym.top
 .vabpfbbtzs.com
 .vabtbjzuwbzki.online
@@ -349176,7 +349136,6 @@
 .www.ktzhk.com
 .www.kupid.ai
 .www.kvjko.marrvelousgirl.net
-.www.kwai.com
 .www.laramaciel.com.br
 .www.largze.dreamydatees.com
 .www.lead.fixxcenter.com

@@ -382,9 +382,9 @@ SERVICE_EXACT_DENY = frozenset(
         "gvt2.com",
         "hybrid.miniapp.taobao.com",
         "ju.taobao.com",
-        "kwai.com",
         "nexus.officeapps.live.com",
         "nexusrules.officeapps.live.com",
+        "nsp-appgallery-cmsimg3az-drcn.obs.cn-north-2.myhuaweicloud.com",
         "obs.cn-east-3.myhuaweicloud.com",
         "obs.cn-north-1.myhuaweicloud.com",
         "obs.cn-north-2.myhuaweicloud.com",
@@ -396,20 +396,44 @@ SERVICE_EXACT_DENY = frozenset(
     }
 )
 
-# Moments media CDNs: every subdomain is the same service.
-# wxsnsad.tc.qq.com is not under these names and stays blocked.
+# Suffix and every subdomain. wxsnsad.tc.qq.com is not under the Moments names.
+# kwai.com ad hosts in KWAI_AD_HOSTS, and kwai.com names containing "incentive", stay blocked.
 SERVICE_TREE_DENY = frozenset(
     {
+        "kwai.com",
         "wxs.qq.com",
         "wxsnsdy.tc.qq.com",
         "wxsnsdy.video.qq.com",
     }
 )
 
+# Ad hosts kept when kwai.com is tree-denied.
+KWAI_AD_HOSTS = frozenset(
+    {
+        "gdfp.kwai.com",
+        "h5-ad-intl.kwai.com",
+        "k-ad.region.kwai.com",
+        "kwaiedm.kwai.com",
+        "og-rta.kwai.com",
+    }
+)
+
+
+def kwai_ad_kept(host: str) -> bool:
+    """True for a Kwai ad host that stays blocked under the kwai.com tree deny."""
+    bare = host.lstrip(".")
+    if not bare.endswith(".kwai.com"):
+        return False
+    if "incentive" in bare:
+        return True
+    return bare in KWAI_AD_HOSTS or any(bare.endswith("." + name) for name in KWAI_AD_HOSTS)
+
 
 def service_excluded(host: str) -> bool:
-    """True for a functional-service suffix/apex, or a Moments CDN subdomain."""
+    """True for a functional-service suffix/apex or a denied subdomain."""
     bare = host.lstrip(".")
+    if kwai_ad_kept(bare):
+        return False
     if bare in SERVICE_EXACT_DENY or bare in SERVICE_TREE_DENY:
         return True
     return any(bare.endswith("." + name) for name in SERVICE_TREE_DENY)
