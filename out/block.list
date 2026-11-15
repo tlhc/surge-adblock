@@ -1,11 +1,11 @@
 # Surge DOMAIN-SET
-# Generated: 2026-11-15 00:11:27 UTC+8
+# Generated: 2026-11-15 17:11:59 UTC+8
 # Bare host: exact match; leading dot: host and subdomains
-# Hosts: 374174
+# Hosts: 374374
 # Contents: anti-AD surge2 + BM7 AdvertisingLite_Domain + HaGeZi Normal onlydomains + HaGeZi Pop-Up Ads + geekdada Tracking Protection + 1Hosts Lite
 # Local suffix entries: .ahdohpiechei.com, .mcdn.bilivideo.cn, .mcdn.bilivideo.com, .mountaintoys.cn, .szbdyd.com
 # Local exact entries: ali-bj-pcdn-08.biliapi.net, ali-bj-pcdn-11.biliapi.net, ali-bj-pcdn-12.biliapi.net, ali-bj-pcdn-16.biliapi.net, ali-bj-pcdn-19.biliapi.net, ali-bj-pcdn-24.biliapi.net, ali-bj-pcdn-25.biliapi.net, ali-bj-pcdn-28.biliapi.net, ali-bj-pcdn-37.biliapi.net, ali-bj-pcdn-68.biliapi.net, hw-sh-pcdn-06.biliapi.net, hw-sh-pcdn-08.biliapi.net, hw-sh-pcdn-10.biliapi.net, hw-sh-pcdn-107.biliapi.net, hw-sh-pcdn-112.biliapi.net, hw-sh-pcdn-12.biliapi.net, hw-sh-pcdn-14.biliapi.net, hw-sh-pcdn-15.biliapi.net, hw-sh-pcdn-18.biliapi.net, hw-sh-pcdn-19.biliapi.net, hw-sh-pcdn-26.biliapi.net, hw-sh-pcdn-29.biliapi.net, hw-sh-pcdn-37.biliapi.net, hw-sh-pcdn-96.biliapi.net
-# Excludes Google/Tencent Safe Browsing service domains
+# Excludes Google/Tencent Safe Browsing, named functional-service hosts, and short roots
 .0--4.com
 .0--d.com
 .0-0-0-0-0-0-0-0-0-0-0-0-0-18-0-0-0-0-0-0-0-0-0-0-0-0-0.info
@@ -24114,7 +24114,6 @@
 .aedilestarets.shop
 .aediletwelfth.com
 .aedinenomic.shop
-.aedns.weixin.qq.com
 .aedtwjmn.work
 .aeeg5idiuenbi7erger.com
 .aeelookithdifyf.com
@@ -27475,6 +27474,7 @@
 .aliaspresumerudder.com
 .aliasscoop.com
 .alib.nine.com.au
+.alibabagroup.obs.cn-north-1.myhuaweicloud.com
 .alibabalearning.com
 .alibabapizza.openapp.link
 .alibabashop.fr
@@ -28773,11 +28773,8 @@
 .amcraoizaqijs.site
 .amd-athena-rs-install-logs.s3.amazonaws.com
 .amd-whatsapp.com
-.amdc.alipay.com
 .amdc.lazada.com
-.amdc.m.taobao.com
 .amdc.m.youku.com
-.amdcopen.m.taobao.com
 .amdcrooc.in
 .amdcwiptibfy.in
 .amdyjl5.com
@@ -39445,6 +39442,7 @@
 .api-secure.carrottrack.app
 .api-sentry.ws.126.net
 .api-sg.tingot.com
+.api-shop.kwai.com
 .api-shoulei-ssl.xunlei.com
 .api-shrek.net.jumia.com.gh
 .api-staging.mindbox.ru
@@ -40241,6 +40239,7 @@
 .api.ksapisrv.com
 .api.ktplay.com
 .api.kudaplox.com
+.api.kwai.com
 .api.kwaizt.com
 .api.laatus.com.br
 .api.lab8oficial.com.br
@@ -44454,6 +44453,7 @@
 .asia.atradius.com
 .asia.healy.shop
 .asia.interface.com
+.asia.obs.cn-north-1.myhuaweicloud.com
 .asia01-client-report.honkaiimpact3.com
 .asiadataintelligencelab.digital
 .asiadesignprize.com
@@ -47540,6 +47540,30 @@
 .az-rdx2-lgtvsdp-com.aws-prd.net
 .az.appstore.vivo.com.cn
 .az.nzn.io
+.az1-app.kwai.com
+.az1-h5.kwai.com
+.az1-incentive.kwai.com
+.az1-m-creative.kwai.com
+.az1-m-game.kwai.com
+.az1-m-live.kwai.com
+.az1-m-shop.kwai.com
+.az1-m-wallet.kwai.com
+.az2-app.kwai.com
+.az2-h5.kwai.com
+.az2-incentive.kwai.com
+.az2-m-creative.kwai.com
+.az2-m-game.kwai.com
+.az2-m-live.kwai.com
+.az2-m-shop.kwai.com
+.az2-m-wallet.kwai.com
+.az3-app.kwai.com
+.az3-h5.kwai.com
+.az3-incentive.kwai.com
+.az3-m-creative.kwai.com
+.az3-m-game.kwai.com
+.az3-m-live.kwai.com
+.az3-m-shop.kwai.com
+.az3-m-wallet.kwai.com
 .az416426.vo.msecnd.net
 .az693360.vo.msecnd.net
 .az703ii1x7.cfd
@@ -50736,12 +50760,19 @@
 .beacons-prod.fubo.tv
 .beacons.ads.fubo.tv
 .beacons.digital.disneyadvertising.com.edgekey.net
+.beacons.gcp.gvt2.com
 .beacons.gcp.gvt2.comoft.comv.com
+.beacons.gvt2.com
 .beacons.trafficmanager.net
 .beacons2-dual-1190961688.eu-west-1.elb.amazonaws.com
 .beacons2-dual-326274080.us-east-1.elb.amazonaws.com
 .beacons2-ipv4-516150149.us-east-1.elb.amazonaws.com
+.beacons2.gvt2.com
+.beacons3.gvt2.com
+.beacons4.gvt2.com
+.beacons5.gvt2.com
 .beacons5.gvt3.com
+.beacons6.gvt2.com
 .beacons6.gvt3.com
 .beaconstreetservices.com
 .beaconwertholm.com
@@ -53574,7 +53605,6 @@
 .bildirt.com
 .bildsieg.com
 .bilgin.pro
-.bilibili.cn
 .bilightonline.com
 .bilingualgeek.com
 .bilink.xyz
@@ -62099,6 +62129,7 @@
 .cantyqueryevening.com
 .canularunseely.cyou
 .canulatusker.qpon
+.canva.obs.cn-north-1.myhuaweicloud.com
 .canvaq.com
 .canvas-bag.shop
 .canvas-pics.com
@@ -64912,6 +64943,7 @@
 .cdn.komentary.aol.com
 .cdn.ksapisrv.com
 .cdn.ktbch.cloud
+.cdn.kwai.com
 .cdn.leadbit.com
 .cdn.leovegas.com
 .cdn.linkster.co
@@ -67081,12 +67113,18 @@
 .chimpanzee.designerdailyreport.com
 .chimpstatic.com
 .chin.net.mydays.de
+.china-1day-bucket.obs.cn-south-1.myhuaweicloud.com
+.china-3day-bucket.obs.cn-south-1.myhuaweicloud.com
 .china-air.ru
 .china-caa.org
+.china-dayunlinks.obs.cn-south-1.myhuaweicloud.com
 .china-hengye.com
 .china-hifi-audio.com
+.china-month-bucket.obs.cn-south-1.myhuaweicloud.com
 .china-oxygen.cn
 .china-pengdu.cn
+.china-sdcard-bucket.obs.cn-south-1.myhuaweicloud.com
+.china-seven-bucket.obs.cn-south-1.myhuaweicloud.com
 .china-star.cc
 .china-tubs.site
 .china-waters.com.cn
@@ -69427,7 +69465,6 @@
 .clientsdk.luminatinet.com
 .clientseoreport.com
 .clientservice.alphasimplex.com
-.clientservices.googleapis.com
 .clientservices.grassrootsunwired.com
 .clientservices.wildtangent.com
 .clientsonautomation.com
@@ -70236,6 +70273,7 @@
 .cm.dmp.360.cn
 .cm.downloader.commercial.kuaishou.com
 .cm.freep.com
+.cm.game.bilibili.com
 .cm.informaengage.com
 .cm.jd.com
 .cm.jsonline.com
@@ -70564,6 +70602,7 @@
 .cn.lucasfinanzas.cl
 .cn.mt
 .cn.mywd.com
+.cn.obs.cn-north-1.myhuaweicloud.com
 .cn.tatami-solutions.com
 .cn.unionlever.com
 .cn1.stadiumgoods.com
@@ -72454,6 +72493,7 @@
 .com.fail
 .com.gardio.se
 .com.nexus-my.com
+.com.obs.cn-north-1.myhuaweicloud.com
 .com.serveo.net
 .com.tr.ht
 .com052bin.com
@@ -99873,6 +99913,146 @@
 .e261.net
 .e26fr9qb4m.com
 .e2a0595802.291cf7aa0b.com
+.e2c1.gcp.gvt2.com
+.e2c10.gcp.gvt2.com
+.e2c11.gcp.gvt2.com
+.e2c12.gcp.gvt2.com
+.e2c13.gcp.gvt2.com
+.e2c14.gcp.gvt2.com
+.e2c15.gcp.gvt2.com
+.e2c16.gcp.gvt2.com
+.e2c17.gcp.gvt2.com
+.e2c19.gcp.gvt2.com
+.e2c2.gcp.gvt2.com
+.e2c20.gcp.gvt2.com
+.e2c21.gcp.gvt2.com
+.e2c22.gcp.gvt2.com
+.e2c23.gcp.gvt2.com
+.e2c24.gcp.gvt2.com
+.e2c25.gcp.gvt2.com
+.e2c26.gcp.gvt2.com
+.e2c27.gcp.gvt2.com
+.e2c28.gcp.gvt2.com
+.e2c29.gcp.gvt2.com
+.e2c3.gcp.gvt2.com
+.e2c30.gcp.gvt2.com
+.e2c31.gcp.gvt2.com
+.e2c32.gcp.gvt2.com
+.e2c33.gcp.gvt2.com
+.e2c34.gcp.gvt2.com
+.e2c35.gcp.gvt2.com
+.e2c36.gcp.gvt2.com
+.e2c37.gcp.gvt2.com
+.e2c38.gcp.gvt2.com
+.e2c39.gcp.gvt2.com
+.e2c4.gcp.gvt2.com
+.e2c40.gcp.gvt2.com
+.e2c41.gcp.gvt2.com
+.e2c42.gcp.gvt2.com
+.e2c43.gcp.gvt2.com
+.e2c44.gcp.gvt2.com
+.e2c45.gcp.gvt2.com
+.e2c46.gcp.gvt2.com
+.e2c47.gcp.gvt2.com
+.e2c48.gcp.gvt2.com
+.e2c49.gcp.gvt2.com
+.e2c5.gcp.gvt2.com
+.e2c50.gcp.gvt2.com
+.e2c51.gcp.gvt2.com
+.e2c52.gcp.gvt2.com
+.e2c53.gcp.gvt2.com
+.e2c54.gcp.gvt2.com
+.e2c55.gcp.gvt2.com
+.e2c56.gcp.gvt2.com
+.e2c57.gcp.gvt2.com
+.e2c58.gcp.gvt2.com
+.e2c59.gcp.gvt2.com
+.e2c6.gcp.gvt2.com
+.e2c60.gcp.gvt2.com
+.e2c61.gcp.gvt2.com
+.e2c62.gcp.gvt2.com
+.e2c63.gcp.gvt2.com
+.e2c64.gcp.gvt2.com
+.e2c65.gcp.gvt2.com
+.e2c66.gcp.gvt2.com
+.e2c67.gcp.gvt2.com
+.e2c68.gcp.gvt2.com
+.e2c69.gcp.gvt2.com
+.e2c7.gcp.gvt2.com
+.e2c70.gcp.gvt2.com
+.e2c71.gcp.gvt2.com
+.e2c72.gcp.gvt2.com
+.e2c73.gcp.gvt2.com
+.e2c74.gcp.gvt2.com
+.e2c75.gcp.gvt2.com
+.e2c76.gcp.gvt2.com
+.e2c77.gcp.gvt2.com
+.e2c78.gcp.gvt2.com
+.e2c79.gcp.gvt2.com
+.e2c8.gcp.gvt2.com
+.e2c80.gcp.gvt2.com
+.e2c81.gcp.gvt2.com
+.e2c82.gcp.gvt2.com
+.e2c83.gcp.gvt2.com
+.e2c84.gcp.gvt2.com
+.e2c85.gcp.gvt2.com
+.e2c86.gcp.gvt2.com
+.e2c87.gcp.gvt2.com
+.e2c9.gcp.gvt2.com
+.e2cs01.gcp.gvt2.com
+.e2cs02.gcp.gvt2.com
+.e2cs03.gcp.gvt2.com
+.e2cs04.gcp.gvt2.com
+.e2cs05.gcp.gvt2.com
+.e2cs06.gcp.gvt2.com
+.e2cs07.gcp.gvt2.com
+.e2cs08.gcp.gvt2.com
+.e2cs09.gcp.gvt2.com
+.e2cs10.gcp.gvt2.com
+.e2cs11.gcp.gvt2.com
+.e2cs12.gcp.gvt2.com
+.e2cs13.gcp.gvt2.com
+.e2cs14.gcp.gvt2.com
+.e2cs15.gcp.gvt2.com
+.e2cs16.gcp.gvt2.com
+.e2cs17.gcp.gvt2.com
+.e2cs19.gcp.gvt2.com
+.e2cs20.gcp.gvt2.com
+.e2cs21.gcp.gvt2.com
+.e2cs22.gcp.gvt2.com
+.e2cs23.gcp.gvt2.com
+.e2cs24.gcp.gvt2.com
+.e2cs25.gcp.gvt2.com
+.e2cs26.gcp.gvt2.com
+.e2cs27.gcp.gvt2.com
+.e2cs28.gcp.gvt2.com
+.e2cs29.gcp.gvt2.com
+.e2cs30.gcp.gvt2.com
+.e2cs31.gcp.gvt2.com
+.e2cs32.gcp.gvt2.com
+.e2cs33.gcp.gvt2.com
+.e2cs34.gcp.gvt2.com
+.e2cs35.gcp.gvt2.com
+.e2cs36.gcp.gvt2.com
+.e2cs37.gcp.gvt2.com
+.e2cs38.gcp.gvt2.com
+.e2cs39.gcp.gvt2.com
+.e2cs40.gcp.gvt2.com
+.e2cs41.gcp.gvt2.com
+.e2cs42.gcp.gvt2.com
+.e2cs43.gcp.gvt2.com
+.e2cs44.gcp.gvt2.com
+.e2cs45.gcp.gvt2.com
+.e2cs46.gcp.gvt2.com
+.e2cs47.gcp.gvt2.com
+.e2cs48.gcp.gvt2.com
+.e2cs49.gcp.gvt2.com
+.e2cs50.gcp.gvt2.com
+.e2cs51.gcp.gvt2.com
+.e2cs52.gcp.gvt2.com
+.e2cs53.gcp.gvt2.com
+.e2cs54.gcp.gvt2.com
+.e2cs55.gcp.gvt2.com
 .e2e-static.zdcommerce.io
 .e2e.mashable.com
 .e2education.com
@@ -119497,6 +119677,7 @@
 .g-api-eu.ekatox.com
 .g-api-us.ekatox.com
 .g-api.ekatox.com
+.g-api.kwai.com
 .g-br-cdn.kwai.net.iberostar.com
 .g-chrome-google.com.cn
 .g-fallback.whatsapp.net.iberostar.com
@@ -120286,13 +120467,13 @@
 .game.9xzj.com
 .game.baichuanhd.cn
 .game.bestvideo.cc
-.game.bilibili.com
 .game.cactiapi.com
 .game.gainsforgamers.com
 .game.html5.qq.com
 .game.ifeng.com
 .game.kugou.com
 .game.kuwo.cn
+.game.kwai.com
 .game.letvstore.com
 .game.pps.tv
 .game.qidian.com
@@ -121476,6 +121657,7 @@
 .gdfot.summerfridays.com
 .gdfp.gifshow.com
 .gdfp.ksapisrv.com
+.gdfp.kwai.com
 .gdfqsdf.com
 .gdfsrd.itslighting.kr
 .gdftfhlfnnbox.online
@@ -135464,7 +135646,6 @@
 .gvsxuu.farmasi.sk
 .gvszsbtolzipu.site
 .gvt2-cn.com
-.gvt2.com
 .gvtki.hairfillup.com
 .gvvbs.springrose.co
 .gvvkf.moventashop.com
@@ -136076,10 +136257,12 @@
 .h4soqcsrp5.com
 .h4tmdz92jq.com
 .h4z2ko7lb.com
+.h5-ad-intl.kwai.com
 .h5-csr12.net.abomix.de
 .h5-page.com
 .h5.holalauncher.com
 .h5.jiumaster.com
+.h5.kwai.com
 .h5.mse.360.cn
 .h5.pk1179.com
 .h5.super-dreamers.com
@@ -143702,7 +143885,6 @@
 .hybrid-mgmt01.net.mydays.de
 .hybrid-prd.ad-prd.s.joyn.de
 .hybrid.ai
-.hybrid.miniapp.taobao.com
 .hybrid.ru
 .hybridaattilaunlobed.cyou
 .hybridaazon.cyou
@@ -147898,6 +148080,7 @@
 .incegceozdsrt.space
 .incentaclick.com
 .incenter12.com
+.incentive.kwai.com
 .incentivemountdisprove.com
 .incentivesnetwork.net
 .inceptial.com
@@ -154633,6 +154816,7 @@
 .jfajhkpq.shop
 .jfan1.com
 .jfaohjoh.com
+.jfappstore.obs.cn-south-1.myhuaweicloud.com
 .jfatdzowbj.com
 .jfawllqc.com
 .jfcbwkzwaju.com
@@ -157189,7 +157373,6 @@
 .jtzrhflqbnbal.website
 .jtzyk9iypb.com
 .ju.docilecoree.cfd
-.ju.taobao.com
 .ju23.madeindesign.co.uk
 .ju33.com
 .juandou.com
@@ -158127,6 +158310,7 @@
 .k.kompava.si
 .k.kompava.sk
 .k.krito.be
+.k.kwai.com
 .k.kwslovenia.com
 .k.laredoute.ch
 .k.laredoute.co.uk
@@ -163301,7 +163485,7 @@
 .kw5xxgk4kkru2h2ji1zoto4qq.cfd
 .kw7addjwr.com
 .kwaefd.rusty.com
-.kwai.com
+.kwaiedm.kwai.com
 .kwaipjzkmtwct.site
 .kwalnc.vans.co.kr
 .kwanquam.cyou
@@ -165131,6 +165315,7 @@
 .lazacasino.com
 .lazada-ad-workstation.oss-ap-southeast-1.aliyuncs.com
 .lazada.bet
+.lazada.obs.cn-north-1.myhuaweicloud.com
 .lazada1688.com
 .lazada77.com
 .lazalogistics.ph
@@ -166234,6 +166419,7 @@
 .lekuad.com
 .lekven.jetcost.co.uk
 .leky-na-potenci.com
+.lel.obs.cn-north-1.myhuaweicloud.com
 .lel704cjev.com
 .leladeverkauf.com
 .lele999.com
@@ -167125,6 +167311,7 @@
 .libertystmedia.com
 .liberummorphoyet.cfd
 .liberux.net
+.libfre.obs.cn-east-3.myhuaweicloud.com
 .libgen.ad
 .libgen.cc
 .libgen.mx
@@ -177354,6 +177541,7 @@
 .loamedstella.cfd
 .loamierallice.cyou
 .loan-quick-online.com
+.loan.kwai.com
 .loanaircraft.com
 .loandatec.com
 .loanedcylices.cfd
@@ -178754,6 +178942,7 @@
 .logistics.dbschenker.com
 .logistics.osmworldwide.com
 .logistimatics.com
+.logitechg.obs.cn-north-1.myhuaweicloud.com
 .logitechoutlet-eu.shop
 .logitepic.com
 .logjamsbegalls.cfd
@@ -181788,14 +181977,17 @@
 .m-fidelity.com
 .m-firefox.com
 .m-freeway.com
+.m-game.kwai.com
 .m-hub.info
 .m-i4.cn
 .m-img.org
 .m-live.jp
+.m-live.kwai.com
 .m-lotosystems.com
 .m-metrics.capitalone.com
 .m-pathy.com
 .m-rtb.com
+.m-shop.kwai.com
 .m-sicherekauf.de
 .m-store.gronard.de
 .m-stratovibe.prod.suno.com
@@ -182222,6 +182414,7 @@
 .m.ksapisrv.com
 .m.ksttwz.com
 .m.kubiqq.com
+.m.kwai.com
 .m.kzqcs.com
 .m.l620e.cn
 .m.ladrillos.ar
@@ -192444,6 +192637,7 @@
 .media-talk.ru
 .media-titanium.cursecdn.com
 .media-voigt.de
+.media-watchmen-delay.kwai.com
 .media-weber.com
 .media.2011.8684.com
 .media.accdn.dev
@@ -206521,6 +206715,7 @@
 .mynullyptoai.com
 .mynutraresearch.com
 .mynysy.com
+.myoas.obs.cn-north-1.myhuaweicloud.com
 .myocdiachondre.qpon
 .myocean.jp
 .myoiddeck.shop
@@ -208808,6 +209003,7 @@
 .net.jumia.ug
 .net.kampus.ro
 .net.mydays.ch
+.net.obs.cn-north-1.myhuaweicloud.com
 .net.redroses.top
 .net.rewe.de
 .net.sexstories69.com
@@ -209732,7 +209928,6 @@
 .nexus.ensighten.tiaa.org
 .nexus.gomule.com
 .nexus.mbna.ca
-.nexus.officeapps.live.com
 .nexus.rottne.com
 .nexus.td.com
 .nexus.tdassurance.com
@@ -209750,7 +209945,6 @@
 .nexusmops.com
 .nexusnovax.com
 .nexusonline.com.br
-.nexusrules.officeapps.live.com
 .nexussolaraus.com
 .nexuswebshop.com
 .nexuswithwarehouses.com
@@ -212626,11 +212820,17 @@
 .nsoft-s.com
 .nsoibm.link
 .nsomedidm.xyz
+.nsp-appgallery-cmsimg3az-drcn.obs.cn-north-2.myhuaweicloud.com
 .nsp-logservice-hiview-p01-drru.obs.ru-northwest-2.myhuaweicloud.ru
 .nsp-logservice-hiview-p05-dra.obs.ap-southeast-3.myhuaweicloud.com
 .nsp-logservice-hiview-p06-dra.obs.ap-southeast-3.myhuaweicloud.com
 .nsp-logservice-hiview-p07-dra.obs.ap-southeast-3.myhuaweicloud.com
 .nsp-logservice-hiview-p08-dra.obs.ap-southeast-3.myhuaweicloud.com
+.nsp-logservice-hiview-p41-drcn.obs.cn-north-2.myhuaweicloud.com
+.nsp-logservice-hiview-p43-drcn.obs.cn-north-2.myhuaweicloud.com
+.nsp-logservice-hiview-p50-drcn.obs.cn-north-2.myhuaweicloud.com
+.nsp-logservice-hiview-p51-drcn.obs.cn-north-2.myhuaweicloud.com
+.nsp-logservice-weardevice-p51-drcn.obs.cn-north-2.myhuaweicloud.com
 .nspapi.aiservice.vn
 .nspcapi.nationalschoolspartnership.com
 .nspmotion.com
@@ -212792,6 +212992,7 @@
 .ntoftheusysianedt.info
 .ntonio.de
 .ntopcd.underarmour.nl
+.ntp.kwai.com
 .ntp.ynuf.aliapp.org
 .ntp1.rottne.com
 .ntpddq.com
@@ -214152,12 +214353,9 @@
 .obrolanmalam.com
 .obrqts.hudforeclosed.com
 .obrqupzkarrdx.site
+.obs-p6sstore-product.obs.cn-north-4.myhuaweicloud.com
+.obs-xm-pub.obs.cn-south-1.myhuaweicloud.com
 .obs.cn
-.obs.cn-east-3.myhuaweicloud.com
-.obs.cn-north-1.myhuaweicloud.com
-.obs.cn-north-2.myhuaweicloud.com
-.obs.cn-north-4.myhuaweicloud.com
-.obs.cn-south-1.myhuaweicloud.com
 .obs.com.cn
 .obs.du89buildings.com
 .obs.mts.ru
@@ -215218,6 +215416,7 @@
 .ofz6hz.top
 .ofzqe.red-equipment.us
 .og-ali1.com
+.og-rta.kwai.com
 .og-shopee9.com
 .og.olgam.com
 .og2ebeuxa.com
@@ -217000,7 +217199,6 @@
 .oneoffice365loginn.myportfolio.com
 .oneol.shop
 .oneotheacon.cc
-.onepass.geetest.com
 .onepieceshopparis2024.fr
 .oneplus1life.com
 .onepoliticalplaza.com
@@ -223366,7 +223564,6 @@
 .pay-u495328.cc
 .pay.aqiu6.com
 .pay.cld36a.top
-.pay.com
 .pay.confirmepagamento.com
 .pay.holaq.com
 .pay.i-h3dhgj8q3wnzeox7.online
@@ -232421,7 +232618,6 @@
 .prescsymbi.store
 .presearchity.site
 .presence.api.drift.com
-.presence.teams.live.com
 .present-art.com
 .present-average.pro
 .presentationbishop.com
@@ -241571,6 +241767,7 @@
 .realmedia-a592.d4p.net
 .realmedia-a800.d4p.net
 .realmedia.com
+.realmemobile.obs.cn-north-1.myhuaweicloud.com
 .realmgaw.cyou
 .realmnova.com
 .realnetworks.com
@@ -242573,6 +242770,7 @@
 .regio-treuhand.de
 .region.ihuman.com
 .region.ksapisrv.com
+.region.kwai.com
 .regionads.ru
 .regionalavouchcreeping.com
 .regionalstorydesk.click
@@ -249639,6 +249837,7 @@
 .s.kottisdesign.gr
 .s.kreditucentras.lt
 .s.krepubliq.com
+.s.kwai.com
 .s.l8l9.com
 .s.lagshoppen.se
 .s.larochelle1.com
@@ -262053,6 +262252,7 @@
 .sg.jointaxattorneysofamerica.com
 .sg.kapi.vc
 .sg.klokdakkapellen.nl
+.sg.kwai.com
 .sg.log.ulivetv.net
 .sg.lucanet.com
 .sg.mattisons.com
@@ -306903,7 +307103,6 @@
 .szlakismak.pl
 .szlcgeoxvoqzs.online
 .szlite.cn
-.szlong.weixin.qq.com
 .szlqt.bluehalotexas.com
 .szltwl.com
 .szluwimnygffe.site
@@ -312884,6 +313083,7 @@
 .tenanthonourmockery.com
 .tenantrip.com
 .tencableplug.com
+.tencent.obs.cn-north-1.myhuaweicloud.com
 .tencent.xn--io0a7i
 .tencentapigw.com
 .tencentmind.com
@@ -320788,7 +320988,6 @@
 .track.nclisc.com
 .track.neolevel.com.br
 .track.nerdytech.dev
-.track.net
 .track.netogo.tv
 .track.netzero.net
 .track.newdawn-trust.co.uk
@@ -321429,7 +321628,6 @@
 .tracker.cmsbox.com
 .tracker.cncenter.cz
 .tracker.colatv88xb.cc
-.tracker.com
 .tracker.corporalacademy.com.br
 .tracker.costurecommarcia.com.br
 .tracker.cpapath.com
@@ -329579,6 +329777,7 @@
 .ug-sg.capcutapi.com
 .ug-va.capcutapi.com
 .ug.baidu.com
+.ug.kwai.com
 .ug.snssdk.com
 .ug.urban-goddess.com
 .ug2k8bslb.com
@@ -332318,7 +332517,6 @@
 .update.browser.qq.com
 .update.ced.cy
 .update.cg100iii.com
-.update.com
 .update.fbsbx.com
 .update.juw37xqo3x.com
 .update.kmpmedia.net
@@ -333351,6 +333549,7 @@
 .usflicks.com
 .usfpeusrzbcfo.website
 .usg-freight.com
+.usg-tms-system-soft-template-078bb3cf07ac46bf8b30ae23a0efe047.obs.cn-north-4.myhuaweicloud.com
 .usgutmbdobzni.website
 .usgwatch.com
 .usgzei.vidaxl.ch
@@ -335034,6 +335233,7 @@
 .vaamsmgfreocmroe-1342087530.cos.sa-saopaulo.myqcloud.com
 .vaatjcfcwvjsa.space
 .vaatmetu.net
+.vaaz2-m-shop.kwai.com
 .vaazaraokaym.top
 .vabpfbbtzs.com
 .vabtbjzuwbzki.online
@@ -338986,6 +339186,7 @@
 .vn-uz.xyz
 .vn-vp.xyz
 .vn.alexajstrack.com
+.vn.obs.cn-north-1.myhuaweicloud.com
 .vn.tv.global.mi.com
 .vn.vnhao123.xyz
 .vn.zlotiesjakos.shop
@@ -341535,6 +341736,7 @@
 .wantspunishrile.com
 .wantubad.com
 .wanxiangxs.cc
+.wanyol.obs.cn-north-1.myhuaweicloud.com
 .wao.atu.de
 .wao24.com
 .waogi.com
@@ -348974,6 +349176,7 @@
 .www.ktzhk.com
 .www.kupid.ai
 .www.kvjko.marrvelousgirl.net
+.www.kwai.com
 .www.laramaciel.com.br
 .www.largze.dreamydatees.com
 .www.lead.fixxcenter.com
@@ -349719,11 +349922,8 @@
 .wxqlynazgmk.com
 .wxqpludtkecwo.online
 .wxrgjdkxhegjn.online
-.wxs.qq.com
 .wxs666.cn
 .wxsnsad.tc.qq.com
-.wxsnsdy.tc.qq.com
-.wxsnsdy.video.qq.com
 .wxsohu.com
 .wxsoratqogziz.site
 .wxstatic.cn

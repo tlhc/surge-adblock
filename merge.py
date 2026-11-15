@@ -337,6 +337,7 @@ SHORT_ROOT_DENY = frozenset(
         "analytics.vg",
         "metrics.io",
         "metrics.li",
+        "pay.com",
         "stat.media",
         "stat.ovh",
         "stat.pl",
@@ -347,6 +348,9 @@ SHORT_ROOT_DENY = frozenset(
         "stats.lt",
         "stats.rip",
         "stats.st",
+        "track.net",
+        "tracker.com",
+        "update.com",
     }
 )
 
@@ -362,6 +366,60 @@ def to_domainset_lines(hosts: Set[str]) -> List[str]:
 
 
 PROTECTED_HOSTS = frozenset({"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"})
+
+# Functional services whose own suffix rule is over-broad.
+# Exact names only, removed before suffix folding, so more-specific hosts stay.
+# Covering parents (qq.com, googleapis.com, and similar) are not removed.
+SERVICE_EXACT_DENY = frozenset(
+    {
+        "aedns.weixin.qq.com",
+        "amdc.alipay.com",
+        "amdc.m.taobao.com",
+        "amdcopen.m.taobao.com",
+        "bilibili.cn",
+        "clientservices.googleapis.com",
+        "game.bilibili.com",
+        "gvt2.com",
+        "hybrid.miniapp.taobao.com",
+        "ju.taobao.com",
+        "kwai.com",
+        "nexus.officeapps.live.com",
+        "nexusrules.officeapps.live.com",
+        "obs.cn-east-3.myhuaweicloud.com",
+        "obs.cn-north-1.myhuaweicloud.com",
+        "obs.cn-north-2.myhuaweicloud.com",
+        "obs.cn-north-4.myhuaweicloud.com",
+        "obs.cn-south-1.myhuaweicloud.com",
+        "onepass.geetest.com",
+        "presence.teams.live.com",
+        "szlong.weixin.qq.com",
+    }
+)
+
+# Moments media CDNs: every subdomain is the same service.
+# wxsnsad.tc.qq.com is not under these names and stays blocked.
+SERVICE_TREE_DENY = frozenset(
+    {
+        "wxs.qq.com",
+        "wxsnsdy.tc.qq.com",
+        "wxsnsdy.video.qq.com",
+    }
+)
+
+
+def service_excluded(host: str) -> bool:
+    """True for a functional-service suffix/apex, or a Moments CDN subdomain."""
+    bare = host.lstrip(".")
+    if bare in SERVICE_EXACT_DENY or bare in SERVICE_TREE_DENY:
+        return True
+    return any(bare.endswith("." + name) for name in SERVICE_TREE_DENY)
+
+
+def drop_service_hosts(hosts: Set[str]) -> Tuple[Set[str], Set[str]]:
+    """Return (kept, removed) for SERVICE_EXACT_DENY and SERVICE_TREE_DENY."""
+    removed = {h for h in hosts if service_excluded(h)}
+    return hosts - removed, removed
+
 
 # DOMAIN-SUFFIX,host is stored as .host: the name and its subdomains.
 # These entries are merged on every run so a source refresh cannot drop them.
@@ -470,6 +528,8 @@ def main() -> int:
             for protected in PROTECTED_HOSTS
         )
     }
+    # Before suffix folding, so specific child hosts are not collapsed away.
+    rec, service_removed = drop_service_hosts(rec)
     rec.update(LOCAL_SUFFIX_HOSTS)
     rec.update(LOCAL_EXACT_HOSTS)
     rec_folded = fold_suffixes(rec)
@@ -497,7 +557,7 @@ def main() -> int:
             "# Contents: " + " + ".join(SOURCES_META[key]["label"] for key in BLOCK_SOURCES),
             "# Local suffix entries: " + ", ".join(sorted(LOCAL_SUFFIX_HOSTS)),
             "# Local exact entries: " + ", ".join(sorted(LOCAL_EXACT_HOSTS)),
-            "# Excludes Google/Tencent Safe Browsing service domains",
+            "# Excludes Google/Tencent Safe Browsing, named functional-service hosts, and short roots",
         ],
     )
     for stale in (
@@ -541,6 +601,7 @@ def main() -> int:
 
     print("\n== outputs ==")
     print(f"  block: {n_rec}")
+    print(f"  service filter removed: {len(service_removed)}")
     print(f"  short-root filter removed: {len(short_roots_removed)}")
     if short_roots_removed:
         print("  " + ", ".join(sorted(short_roots_removed)))

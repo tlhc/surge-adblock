@@ -114,6 +114,91 @@ class MergeTests(unittest.TestCase):
     def test_short_root_filter(self):
         self.assertEqual(merge.drop_short_roots({".ad.com", ".doubleclick.net"}),
                          ({".doubleclick.net"}, {".ad.com"}))
+        for name in ("pay.com", "update.com", "tracker.com", "track.net"):
+            self.assertIn(name, merge.SHORT_ROOT_DENY)
+        kept, removed = merge.drop_short_roots(
+            {".pay.com", ".update.com", ".tracker.com", ".track.net", ".adpay.com", ".clearing-update.com", ".17track.net"}
+        )
+        self.assertEqual(removed, {".pay.com", ".update.com", ".tracker.com", ".track.net"})
+        self.assertEqual(kept, {".adpay.com", ".clearing-update.com", ".17track.net"})
+        folded = merge.fold_suffixes({".pay.com", ".api.pay.com", "pay.com"})
+        kept, removed = merge.drop_short_roots(folded)
+        self.assertEqual(folded, {".pay.com"})
+        self.assertEqual(kept, set())
+        self.assertEqual(removed, {".pay.com"})
+
+    def test_service_exclusions_keep_specific_hosts(self):
+        hosts = {
+            ".wxs.qq.com",
+            "wxs.qq.com",
+            ".wxsnsdy.wxs.qq.com",
+            ".wximg.wxs.qq.com",
+            ".wxsmw.wxs.qq.com",
+            ".wxsnsdythumb.wxs.qq.com",
+            ".wxsnsdy.tc.qq.com",
+            ".wxsnsdy.video.qq.com",
+            ".wxsnsad.tc.qq.com",
+            ".szlong.weixin.qq.com",
+            ".aedns.weixin.qq.com",
+            ".obs.cn-north-1.myhuaweicloud.com",
+            ".alibabagroup.obs.cn-north-1.myhuaweicloud.com",
+            ".gvt2.com",
+            ".beacons.gvt2.com",
+            ".kwai.com",
+            ".h5-ad-intl.kwai.com",
+            ".game.bilibili.com",
+            ".cm.game.bilibili.com",
+            ".bilibili.cn",
+            ".ahdohpiechei.com",
+            "ali-bj-pcdn-08.biliapi.net",
+            ".pay.com",
+            ".api.pay.com",
+        }
+        kept, removed = merge.drop_service_hosts(hosts)
+        for entry in (
+            ".wxs.qq.com",
+            "wxs.qq.com",
+            ".wxsnsdy.wxs.qq.com",
+            ".wximg.wxs.qq.com",
+            ".wxsmw.wxs.qq.com",
+            ".wxsnsdythumb.wxs.qq.com",
+            ".wxsnsdy.tc.qq.com",
+            ".wxsnsdy.video.qq.com",
+            ".szlong.weixin.qq.com",
+            ".aedns.weixin.qq.com",
+            ".obs.cn-north-1.myhuaweicloud.com",
+            ".gvt2.com",
+            ".kwai.com",
+            ".game.bilibili.com",
+            ".bilibili.cn",
+        ):
+            self.assertIn(entry, removed)
+            self.assertNotIn(entry, kept)
+        for entry in (
+            ".wxsnsad.tc.qq.com",
+            ".alibabagroup.obs.cn-north-1.myhuaweicloud.com",
+            ".beacons.gvt2.com",
+            ".h5-ad-intl.kwai.com",
+            ".cm.game.bilibili.com",
+            ".ahdohpiechei.com",
+            "ali-bj-pcdn-08.biliapi.net",
+            ".pay.com",
+            ".api.pay.com",
+        ):
+            self.assertIn(entry, kept)
+            self.assertNotIn(entry, removed)
+        self.assertFalse(merge.service_excluded(".wxsnsad.tc.qq.com"))
+        self.assertFalse(merge.service_excluded("ali-bj-pcdn-08.biliapi.net"))
+        self.assertFalse(merge.service_excluded(".ahdohpiechei.com"))
+        self.assertTrue(merge.service_excluded(".wxa.wxs.qq.com"))
+        folded = merge.fold_suffixes(kept)
+        self.assertIn(".wxsnsad.tc.qq.com", folded)
+        self.assertIn(".alibabagroup.obs.cn-north-1.myhuaweicloud.com", folded)
+        self.assertIn(".beacons.gvt2.com", folded)
+        self.assertIn(".h5-ad-intl.kwai.com", folded)
+        self.assertIn(".cm.game.bilibili.com", folded)
+        self.assertIn(".ahdohpiechei.com", folded)
+        self.assertIn("ali-bj-pcdn-08.biliapi.net", folded)
 
     def test_hagezi_wildcard_source(self):
         self.assertEqual(merge.line_to_host("doubleclick.net", "plain_hosts"), ".doubleclick.net")
@@ -163,6 +248,25 @@ class MergeTests(unittest.TestCase):
             ):
                 self.assertNotIn(absent, lines)
             self.assertIn(".ahdohpiechei.com", lines)
+            for name in merge.SERVICE_EXACT_DENY | merge.SERVICE_TREE_DENY | {"pay.com", "update.com", "tracker.com", "track.net"}:
+                self.assertNotIn("." + name, lines)
+                self.assertNotIn(name, lines)
+            for entry in (
+                ".wxa.wxs.qq.com",
+                ".wximg.wxs.qq.com",
+                ".wxsmw.wxs.qq.com",
+                ".wxsnsdy.wxs.qq.com",
+                ".wxsnsdythumb.wxs.qq.com",
+            ):
+                self.assertNotIn(entry, lines)
+            for entry in (
+                ".wxsnsad.tc.qq.com",
+                ".alibabagroup.obs.cn-north-1.myhuaweicloud.com",
+                ".beacons.gvt2.com",
+                ".h5-ad-intl.kwai.com",
+                ".cm.game.bilibili.com",
+            ):
+                self.assertIn(entry, lines)
             folded = merge.fold_suffixes({".ahdohpiechei.com", ".2026608071.ahdohpiechei.com", "2026608071.ahdohpiechei.com"})
             self.assertEqual(folded, {".ahdohpiechei.com"})
             dnsRules = set((Path(directory) / "dns-block-ruleset.list").read_text().splitlines())
@@ -188,7 +292,7 @@ class MergeTests(unittest.TestCase):
                         self.assertTrue(host.startswith("||") and host.endswith("^"), host)
                         host = host[2:-1]
                     parents = {".".join(host.split(".")[i:]) for i in range(len(host.split(".")) - 1)}
-                    if parents & merge.SHORT_ROOT_DENY or parents & {"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"}:
+                    if merge.service_excluded(host) or parents & merge.SHORT_ROOT_DENY or parents & {"safebrowsing.googleapis.com", "safebrowsing.urlsec.qq.com"}:
                         continue
                     if not any("." + parent in lines for parent in parents):
                         missing.append(host)
