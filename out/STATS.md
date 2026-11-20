@@ -2,14 +2,14 @@
 
 | Source | Parsed hosts |
 |--------|-------------:|
-| anti-AD surge2 | 101832 |
+| anti-AD surge2 | 102741 |
 | BM7 AdvertisingLite_Domain | 37692 |
-| HaGeZi Normal onlydomains | 177101 |
-| HaGeZi Pop-Up Ads | 72491 |
-| geekdada Tracking Protection | 120625 |
+| HaGeZi Normal onlydomains | 194288 |
+| HaGeZi Pop-Up Ads | 72620 |
+| geekdada Tracking Protection | 120631 |
 | 1Hosts Lite | 102259 |
 
-`out/block.list`: 359696
+`out/block.list`: 375404
 
 | DNS source | Parsed rules |
 |------------|-------------:|
