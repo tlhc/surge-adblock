@@ -5,6 +5,14 @@ on:
     # Daily at 16:00 UTC
     - cron: "0 16 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - merge.py
+
+concurrency:
+  group: update-lists
+  cancel-in-progress: false
 
 permissions:
   contents: write
