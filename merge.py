@@ -418,6 +418,51 @@ SERVICE_EXACT_DENY = frozenset(
     }
 )
 
+# ByteDance SDK hosts used by Doubao IME: settings, TTNet TNC and HTTPDNS,
+# device registration and AppLog, APM, and verify. Speech and text organize
+# need a device_id and settings (ASR app_key) first. Exact names only;
+# ad and Pangle hosts stay blocked.
+BYTEDANCE_SDK_EXACT_DENY = frozenset(
+    {
+        "abtest-ch.snssdk.com",
+        "applog.snssdk.com",
+        "applog.zijieapi.com",
+        "dig.bdurl.net",
+        "dig.zjurl.cn",
+        "feedback-c.zijieapi.com",
+        "ib.snssdk.com",
+        "is.snssdk.com",
+        "log-hl.snssdk.com",
+        "log-klink.zijieapi.com",
+        "log-lf.snssdk.com",
+        "log-lq.snssdk.com",
+        "log.snssdk.com",
+        "log.zijieapi.com",
+        "log5-applog-hl.zijieapi.com",
+        "log5-applog-lf.zijieapi.com",
+        "mon.snssdk.com",
+        "mon.toutiao.com",
+        "mon.zijieapi.com",
+        "monsetting.toutiao.com",
+        "pc-mon.zijieapi.com",
+        "rtlog.zijieapi.com",
+        "scc.bytedance.com",
+        "settings.ttwebview.com",
+        "timon.zijieapi.com",
+        "tnc0-aliec2.zijieapi.com",
+        "tnc0-alisc1.zijieapi.com",
+        "tnc0-bjlgy.zijieapi.com",
+        "tnc3-aliec2.snssdk.com",
+        "tnc3-aliec2.zijieapi.com",
+        "tnc3-alisc1.snssdk.com",
+        "tnc3-alisc1.zijieapi.com",
+        "tnc3-bjlgy.snssdk.com",
+        "tnc3-bjlgy.zijieapi.com",
+        "vcs.zijieapi.com",
+    }
+)
+SERVICE_EXACT_DENY = SERVICE_EXACT_DENY | BYTEDANCE_SDK_EXACT_DENY
+
 # Suffix and every subdomain. wxsnsad.tc.qq.com is not under the Moments names.
 # kwai.com ad hosts in KWAI_AD_HOSTS, and kwai.com names containing "incentive", stay blocked.
 SERVICE_TREE_DENY = frozenset(
