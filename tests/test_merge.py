@@ -328,6 +328,22 @@ class MergeTests(unittest.TestCase):
         self.assertIn(".ahdohpiechei.com", folded)
         self.assertIn("ali-bj-pcdn-08.biliapi.net", folded)
 
+    def test_bytedance_sdk_hosts_keep_ad_hosts(self):
+        for name in ("is.snssdk.com", "log-klink.zijieapi.com", "tnc0-alisc1.zijieapi.com", "dig.bdurl.net"):
+            self.assertIn(name, merge.BYTEDANCE_SDK_EXACT_DENY)
+            self.assertTrue(merge.service_excluded("." + name))
+        for name in (
+            ".pangolin.snssdk.com",
+            ".ad.zijieapi.com",
+            ".ads3-normal.zijieapi.com",
+            ".log-api.pangolin-sdk-toutiao.com",
+            ".pglstatp-toutiao.com",
+            ".i.snssdk.com",
+            ".dm.bytedance.com",
+            ".x.log.snssdk.com",
+        ):
+            self.assertFalse(merge.service_excluded(name))
+
     def test_hagezi_wildcard_source(self):
         self.assertEqual(merge.line_to_host("doubleclick.net", "plain_hosts"), ".doubleclick.net")
 
