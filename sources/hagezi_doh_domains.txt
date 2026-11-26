@@ -6,8 +6,8 @@
 # Issues: https://github.com/hagezi/dns-blocklists/issues
 # Disclaimer: https://github.com/hagezi/dns-blocklists/blob/main/README.md#disclaimer
 # Expires: 8 hours
-# Last modified: 24 Nov 2026 23:44 UTC
-# Version: 2026.1124.2344.34
+# Last modified: 26 Nov 2026 09:10 UTC
+# Version: 2026.1126.0910.26
 # Syntax: Domains (without subdomains)
 # Number of entries: 3562
 #
@@ -413,7 +413,6 @@ dns.brionesserver.net
 agh.broaddy.com
 service.broe.ru
 dns.brono.cloud
-home.bruckmoser.it
 81.brudnowski.eu
 81xyz.brudnowski.eu
 doh.bt.com
@@ -1420,7 +1419,6 @@ secure.hafnova.com
 dns.hahnjo.de
 dns.haka.se
 dns.hakim.one
-dns.hakutakucn.com
 dns.hanahira.dev
 adguard.haneulo.com
 dns.hanmey.de
@@ -2919,6 +2917,7 @@ yunyun.is.my.waifu.cz
 dns.walker.id
 adguard.wallura.eu
 lfbn-gre-1-319-7.w90-112.abo.wanadoo.fr
+dns.wang.art
 dmit.wangjiaqi.store
 dns.wargan.io
 abel.waringer-atg.de
@@ -3433,6 +3432,7 @@ polisitogel.beauty
 polisitogel.contractors
 polisitogel.green
 polisitogel.hair
+polisitogel.living
 polisitogel.webcam
 privatebard.com
 project-evoex.de
