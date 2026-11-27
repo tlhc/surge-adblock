@@ -356,7 +356,8 @@ class MergeTests(unittest.TestCase):
             for key, meta in merge.SOURCES_META.items()
         }
         with tempfile.TemporaryDirectory() as directory:
-            with patch.object(merge, "fetch_all", return_value=status), patch.object(merge, "OUT", Path(directory)):
+            with patch.object(merge, "fetch_all", return_value=status), patch.object(merge, "OUT", Path(directory)), \
+                 patch.object(merge, "PRUNE_DIR", Path(directory) / "no-prune"):
                 with contextlib.redirect_stdout(io.StringIO()):
                     self.assertEqual(merge.main(), 0)
             block_text = (Path(directory) / "block.list").read_text()
