@@ -21,9 +21,12 @@ import urllib.request
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set, Tuple
 
+import prune
+
 ROOT = Path(__file__).resolve().parent
 SOURCES = ROOT / "sources"
 OUT = ROOT / "out"
+PRUNE_DIR = ROOT / "data"
 SGT = dt.timezone(dt.timedelta(hours=8), name="SGT")
 
 # ---------------------------------------------------------------------------
@@ -579,6 +582,29 @@ BLOCK_SOURCES = (
 )
 
 
+def build_block_set(loaded: Dict[str, Set[str]]) -> Tuple[Set[str], Set[str], Set[str]]:
+    """Merge, exclude protected services, suffix-fold. Returns (hosts, service_removed, short_roots_removed)."""
+    rec: Set[str] = set()
+    for key in BLOCK_SOURCES:
+        rec |= loaded[key]
+    rec = {
+        h for h in rec
+        if not any(
+            h.lstrip(".") == protected
+            or h.lstrip(".").endswith("." + protected)
+            or (h.startswith(".") and protected.endswith(h))
+            for protected in PROTECTED_HOSTS
+        )
+    }
+    # Before suffix folding, so specific child hosts are not collapsed away.
+    rec, service_removed = drop_service_hosts(rec)
+    rec.update(LOCAL_SUFFIX_HOSTS)
+    rec.update(LOCAL_EXACT_HOSTS)
+    rec_folded = fold_suffixes(rec)
+    rec_folded, short_roots_removed = drop_short_roots(rec_folded)
+    return rec_folded, service_removed, short_roots_removed
+
+
 def main() -> int:
     print("== fetch sources ==")
     status = fetch_all()
@@ -607,24 +633,8 @@ def main() -> int:
             )
         return 1
 
-    rec: Set[str] = set()
-    for key in BLOCK_SOURCES:
-        rec |= loaded[key]
-    rec = {
-        h for h in rec
-        if not any(
-            h.lstrip(".") == protected
-            or h.lstrip(".").endswith("." + protected)
-            or (h.startswith(".") and protected.endswith(h))
-            for protected in PROTECTED_HOSTS
-        )
-    }
-    # Before suffix folding, so specific child hosts are not collapsed away.
-    rec, service_removed = drop_service_hosts(rec)
-    rec.update(LOCAL_SUFFIX_HOSTS)
-    rec.update(LOCAL_EXACT_HOSTS)
-    rec_folded = fold_suffixes(rec)
-    rec_folded, short_roots_removed = drop_short_roots(rec_folded)
+    rec_folded, service_removed, short_roots_removed = build_block_set(loaded)
+    rec_folded, pruned = prune.apply(rec_folded, PRUNE_DIR, LOCAL_SUFFIX_HOSTS | LOCAL_EXACT_HOSTS)
 
     now = dt.datetime.now(SGT)
     ts = now.strftime("%Y-%m-%d %H:%M:%S UTC+8")
@@ -694,6 +704,7 @@ def main() -> int:
     print(f"  block: {n_rec}")
     print(f"  service filter removed: {len(service_removed)}")
     print(f"  short-root filter removed: {len(short_roots_removed)}")
+    prune.summary(f"prune: omitted {pruned['dead']} dead and {pruned['junk']} junk hosts; block.list {n_rec}")
     if short_roots_removed:
         print("  " + ", ".join(sorted(short_roots_removed)))
     return 0

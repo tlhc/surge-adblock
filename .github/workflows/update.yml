@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - merge.py
+      - prune.py
 
 concurrency:
   group: update-lists
@@ -27,6 +28,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Refresh dead-host and junk caches
+        run: python3 prune.py refresh
+        timeout-minutes: 100
+        continue-on-error: true
+
       - name: Fetch upstreams and merge
         run: python3 merge.py
 
@@ -37,10 +43,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A out/ sources/
+          git add -A out/ sources/ data/
           if git diff --staged --quiet; then
             echo "No list changes"
           else
             git commit -m "chore: refresh merged DOMAIN-SET $(date -u +%Y-%m-%dT%H%MZ)"
-            git push
+            git push || { git pull --rebase origin main && git push; }
           fi
