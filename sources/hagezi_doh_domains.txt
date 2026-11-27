@@ -6,10 +6,10 @@
 # Issues: https://github.com/hagezi/dns-blocklists/issues
 # Disclaimer: https://github.com/hagezi/dns-blocklists/blob/main/README.md#disclaimer
 # Expires: 8 hours
-# Last modified: 26 Nov 2026 09:10 UTC
-# Version: 2026.1126.0910.26
+# Last modified: 27 Nov 2026 15:51 UTC
+# Version: 2026.1127.1551.49
 # Syntax: Domains (without subdomains)
-# Number of entries: 3562
+# Number of entries: 3571
 #
 ss.0001.xyz
 ns.00dani.me
@@ -257,6 +257,7 @@ dns.applewebkit.dev
 doh.appliedprivacy.net
 dot1.appliedprivacy.net
 dns.aquilenet.fr
+dns.arapurayil.com
 doh.archuser.org
 dns.area2.com
 dns-4f92fba5f9.area2.com
@@ -1202,6 +1203,7 @@ beautifullife.eu.org
 beautifulthings.eu.org
 blackbb.eu.org
 clic.eu.org
+futuredns.eu.org
 r1bnc.eu.org
 sukidayo.eu.org
 tartanbahn.eu.org
@@ -1215,6 +1217,7 @@ adguard.exium.net
 dns.exonip.de
 dns.extrawdw.net
 ad.exxo.work
+fra1.eyecay.xyz
 dns.f1tech.info
 dns.f4a.fun
 dns.f97.xyz
@@ -1690,6 +1693,7 @@ dns.jucker.engineering
 addns.jujuland.net
 dns.jundev.org
 dns.jungle-im.ir
+dns.jupitrdns.com
 sgs02.just-a-web.com
 ad.justincounts.com
 dns.justinnetworkingsolutions.com
@@ -1931,9 +1935,11 @@ rwkdwpwsyv48.mikopono.nl
 dns.millernetwork.uk
 color.mine.bz
 aitkcrev.minhduc.pw
+dns.mipauns.com
 guard.miracloud.fr
 netcup.mismat.ch
 httpdns.browser.miui.com
+dns.miyun1.com
 doh.mmmalia.com
 dns.mnet-online.de
 dns.mni.li
@@ -2124,6 +2130,7 @@ tlan.aa1.netvolante.jp
 dns.netvpn.net
 cube.neubsi.at
 dns.neubsi.at
+dns.neutopia.org
 doh.nexen.cloud
 doh.luigi.nexific.it
 anycast.nextdns.io
@@ -2281,6 +2288,7 @@ dns.pari.network
 dns.parsly.tech
 dns.pastorov.ru
 wg.pastorov.ru
+doh.gcp.pathofgrace.com
 nas.patrick-antoine.fr
 dns.paxavemedia.com
 vps-ovh.pb2004.pl
@@ -2399,6 +2407,7 @@ vpsus3.pzhg.me
 oracle.q66z.com
 home.qbak.net
 adk.qcloud.work
+v.qdev.cc
 dns.qkc.fr
 dns.qpt.one
 dns2.qpt.one
@@ -2917,7 +2926,6 @@ yunyun.is.my.waifu.cz
 dns.walker.id
 adguard.wallura.eu
 lfbn-gre-1-319-7.w90-112.abo.wanadoo.fr
-dns.wang.art
 dmit.wangjiaqi.store
 dns.wargan.io
 abel.waringer-atg.de
@@ -3392,6 +3400,7 @@ myatris.sbs
 mydevpn.eu
 mysolod.xyz
 myv2ray.cn
+n0.eu
 najiakeji.top
 nelsonleung.org
 nickcan.xyz
